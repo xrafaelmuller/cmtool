@@ -1,20 +1,43 @@
-import sys
+import tkinter as tk
+import win32com.client as win32
+from tkinter import Tk, Label, Entry, Checkbutton, BooleanVar, messagebox,PhotoImage
 
-from PyQt5.QtWidgets import QApplication, QWidget
+#Clipboard enablement#
+def add_copied_text():
+    win32.OpenClipboard()
+    clipboard_data = win32.GetClipboardData()
+    win32.CloseClipboard()
+    
+    entry_sender.delete(0, tk.END)
+    entry_sender.insert(tk.END, clipboard_data)
 
-class MyWindow(QWidget):
-    def __init__(self):
-        super().__init__()
+# Main Window
+window = tk.Tk()
+window.geometry("400x500")
+window.title("Standard Change - Lazy Manager")
 
-        self.init_ui()
+# Main Label
+label = tk.Label(window, text="Welcome to Lazy Manager for Standard Changes!")
+label.pack(pady=10)  # Adiciona algum espaço ao redor do rótulo
 
-    def init_ui(self):
-        self.setGeometry(100, 100, 300, 200)  # Set window position and size
-        self.setWindowTitle('Simple PyQt Window')  # Set window title
+#
+def create_label(parent, text):
+    label = tk.Label(parent, text=text, font=("Arial", 12))
+    label.pack()
 
-        self.show()
+def create_entry(parent):
+    entry = tk.Entry(parent, font=("Arial", 10), width=25)
+    entry.pack(pady=10)
+    return entry
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MyWindow()
-    sys.exit(app.exec_())
+#Input Fields
+create_label(window, "Change Coordinator Email:", )
+entry_sender = create_entry(window)
+
+create_label(window, "Request Item Number")
+entry_change = create_entry(window)
+
+# Criar um botão na janela
+
+# Iniciar o loop principal da janela
+window.mainloop()
