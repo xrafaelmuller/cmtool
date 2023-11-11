@@ -2,6 +2,7 @@ import tkinter as tk
 import win32
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
+from tkinter import messagebox
 
 # Clipboard enablement
 def add_copied_text():
@@ -44,10 +45,29 @@ def create_short(parent):
 
 # Function to handle the "Enviar" button click event
 def send_button_click():
-    # Add your code to handle the button click event
-    # For example, you can get the content of the text box:
-    text_content = text_box.get("1.0", tk.END)
-    print("Texto Enviado:", text_content)
+    # Get the content of all entry fields
+    sender_email = entry_sender.get().strip()
+    request_item_number = entry_change.get().strip()
+    short_description = entry_short_description.get().strip()
+    category = dropdown.get().strip()
+    cab_approval_date = date_entry.get().strip()
+    configuration_items = text_box.get("1.0", tk.END).strip()
+
+    # Check if any of the fields is empty
+    if not all([sender_email, request_item_number, short_description, category, cab_approval_date, configuration_items]):
+        # Show an error message if any field is empty
+        messagebox.showerror("Erro", "Todos os campos são obrigatórios. Preencha todos os campos antes de enviar.")
+    else:
+        # Proceed with the sending logic
+        print("Change Coordinator Email:", sender_email)
+        print("Request Item Number:", request_item_number)
+        print("Standard Activity:", short_description)
+        print("Category:", category)
+        print("CAB Approval Date:", cab_approval_date)
+        print("Configuration Items:", configuration_items)
+
+        # Show a message box indicating that the content has been sent
+        messagebox.showinfo("Success", "Texto enviado com sucesso!")
 
 # Main Window
 window = tk.Tk()
