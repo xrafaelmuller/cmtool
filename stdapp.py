@@ -27,7 +27,7 @@ def create_entry(parent, width):
 
 # Function to create a dropdown
 def create_category(parent, options):
-    combo = ttk.Combobox(parent, values=options, font=("Arial", 10))
+    combo = ttk.Combobox(parent, values=options, font=("Arial", 10), state="readonly")
     combo.pack(fill="x", padx=10, pady=(0, 10))
     return combo
 
@@ -43,6 +43,7 @@ def create_short(parent):
     entry.pack(fill="x", padx=10, pady=(0, 10))
     return entry
 
+
 # Function to handle the "Enviar" button click event
 def send_button_click():
     # Get the content of all entry fields
@@ -51,12 +52,11 @@ def send_button_click():
     short_description = entry_short_description.get().strip()
     category = dropdown.get().strip()
     cab_approval_date = date_entry.get().strip()
-    configuration_items = text_box.get("1.0", tk.END).strip()
 
     # Check if any of the fields is empty
-    if not all([sender_email, request_item_number, short_description, category, cab_approval_date, configuration_items]):
+    if not all([sender_email, request_item_number, short_description, category, cab_approval_date]):
         # Show an error message if any field is empty
-        messagebox.showerror("Erro", "Todos os campos são obrigatórios. Preencha todos os campos antes de enviar.")
+        messagebox.showerror("Error", "Todos os campos são obrigatórios. Preencha todos os campos antes de enviar.")
     else:
         # Proceed with the sending logic
         print("Change Coordinator Email:", sender_email)
@@ -64,10 +64,10 @@ def send_button_click():
         print("Standard Activity:", short_description)
         print("Category:", category)
         print("CAB Approval Date:", cab_approval_date)
-        print("Configuration Items:", configuration_items)
 
         # Show a message box indicating that the content has been sent
         messagebox.showinfo("Success", "Texto enviado com sucesso!")
+
 
 # Main Window
 window = tk.Tk()
