@@ -1,8 +1,10 @@
 import tkinter as tk
 import win32
+import emailstd
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
 from tkinter import messagebox
+
 
 # Clipboard enablement
 def add_copied_text():
@@ -42,6 +44,7 @@ def create_short(parent):
     entry = tk.Entry(parent, font=("Arial", 10), width=25)
     entry.pack(fill="x", padx=10, pady=(0, 10))
     return entry
+
 
 
 # Function to handle the "Enviar" button click event
