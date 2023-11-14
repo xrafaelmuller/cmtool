@@ -4,6 +4,7 @@ import emailstd
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
 from tkinter import messagebox
+import win32com.client  # Import win32com.client for Outloo
 
 
 # Clipboard enablement
@@ -45,13 +46,49 @@ def create_short(parent):
     entry.pack(fill="x", padx=10, pady=(0, 10))
     return entry
 
+def send_email():
+    mail_sender = entry_sender.get()
+    if not mail_sender:
+        messagebox.showerror("Error", "Please fill out the CM Email Field.")
+        return
+
+    username, domain = mail_sender.split("@")
+    c_coordinator = username.split("_")
+
+    request_item_number = entry_ritm.get()
+    subject_mail = f"{request_item_number} - Review"
+    body_mail = update_body_mail_email()
+    body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
+    body_mail = body_mail.replace("Change Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
+
+    try:
+        outlook = win32com.client.Dispatch('Outlook.Application')
+        namespace = outlook.GetNamespace("MAPI")
+        caixa_saida = namespace.GetDefaultFolder(5)  # Output Box
+
+        email = outlook.CreateItem(0)  # 0 is an email
+        email.Subject = subject_mail
+        email.HtmlBody = body_mail
+        email.To = mail_sender
+
+        email.Send()
+        messagebox.showinfo("Success", "Email sent!")
+    except Exception as e:
+        messagebox.showerror("Error", f": {str(e)}")
+
+
+#Update email body with selected option in the checkboxes#
+def update_body_mail_email():
+    body_mail = ''
+
+
 
 
 # Function to handle the "Enviar" button click event
 def send_button_click():
     # Get the content of all entry fields
     sender_email = entry_sender.get().strip()
-    request_item_number = entry_change.get().strip()
+    request_item_number = entry_ritm.get().strip()
     short_description = entry_short_description.get().strip()
     category = dropdown.get().strip()
     cab_approval_date = date_entry.get().strip()
@@ -59,7 +96,7 @@ def send_button_click():
     # Check if any of the fields is empty
     if not all([sender_email, request_item_number, short_description, category, cab_approval_date]):
         # Show an error message if any field is empty
-        messagebox.showerror("Error", "Todos os campos são obrigatórios. Preencha todos os campos antes de enviar.")
+        messagebox.showerror("Error", "All fields are required.")
     else:
         # Proceed with the sending logic
         print("Change Coordinator Email:", sender_email)
@@ -69,7 +106,7 @@ def send_button_click():
         print("CAB Approval Date:", cab_approval_date)
 
         # Show a message box indicating that the content has been sent
-        messagebox.showinfo("Success", "Texto enviado com sucesso!")
+        messagebox.showinfo("Success", "Email Sent")
 
 
 # Main Window
@@ -90,7 +127,7 @@ create_label(frame_request_info, "Change Coordinator Email:")
 entry_sender = create_entry(frame_request_info, width=30)
 
 create_label(frame_request_info, "Request Item Number:")
-entry_change = create_entry(frame_request_info, width=30)
+entry_ritm = create_entry(frame_request_info, width=30)
 
 # Create a frame to group related fields
 frame_request_details = ttk.LabelFrame(window, text="Request Details", padding=(10, 5), height=100)
