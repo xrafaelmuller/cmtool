@@ -97,8 +97,8 @@ def update_body_mail_email():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                                     <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; color: #666666;">I have reviewed RITMXXXXXXX and the following items need to be provided and to be attached in the RITMXXXXXXX to move the Standard Request forward.</p>
-                                    <p id="paragrafo-invisivel1" style="display: none;">Documents</p>
+                                    <p style="font-size: 16px; color: #666666;">Your request RITMXXXXXXX for a new Standard Change, XXActivityXX was approved by CAB as a Standard Change on XXXDATEXXX</p>
+                                    <p id="paragrafo">Documents</p>
                                     <p id="paragrafo-invisivel2" style="display: none;">Descriptions</p>
                                     <p id="paragrafo-invisivel3" style="display: none;">Configuration_item</p>
                                     <p id="paragrafo-invisivel4" style="display: none;">Category</p>
