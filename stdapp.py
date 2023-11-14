@@ -79,34 +79,37 @@ def send_email():
 
 #Update email body with selected option in the checkboxes#
 def update_body_mail_email():
-    body_mail = ''
-
-
-
-
-# Function to handle the "Enviar" button click event
-def send_button_click():
-    # Get the content of all entry fields
-    sender_email = entry_sender.get().strip()
-    request_item_number = entry_ritm.get().strip()
-    short_description = entry_short_description.get().strip()
-    category = dropdown.get().strip()
-    cab_approval_date = date_entry.get().strip()
-
-    # Check if any of the fields is empty
-    if not all([sender_email, request_item_number, short_description, category, cab_approval_date]):
-        # Show an error message if any field is empty
-        messagebox.showerror("Error", "All fields are required.")
-    else:
-        # Proceed with the sending logic
-        print("Change Coordinator Email:", sender_email)
-        print("Request Item Number:", request_item_number)
-        print("Standard Activity:", short_description)
-        print("Category:", category)
-        print("CAB Approval Date:", cab_approval_date)
-
-        # Show a message box indicating that the content has been sent
-        messagebox.showinfo("Success", "Email Sent")
+    body_mail = '''<html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>Your Email Title</title>
+                            </head>
+                            <body>
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+                             <tr>
+                               <td width="510" style="width:382.75pt;background:#0076CE;padding:0cm 5.4pt 0cm 5.4pt;
+                                height:69.55pt">
+                                <p class="MsoNormal"><a name="_MailAutoSig"><span style="font-size:15.0pt;
+                                font-family:&quot;Arial&quot;,sans-serif;color:#F2F2F2;mso-no-proof:yes">Change
+                                Enablement Notification</span><span style="mso-no-proof:yes"><o:p></o:p></span></a></p>
+                             </td>
+                                </tr>
+                                <tr>
+                                <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                                    <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
+                                    <p style="font-size: 16px; color: #666666;">I have reviewed RITMXXXXXXX and the following items need to be provided and to be attached in the RITMXXXXXXX to move the Standard Request forward.</p>
+                                    <p id="paragrafo-invisivel1" style="display: none;">Documents</p>
+                                    <p id="paragrafo-invisivel2" style="display: none;">Descriptions</p>
+                                    <p id="paragrafo-invisivel3" style="display: none;">Configuration_item</p>
+                                    <p id="paragrafo-invisivel4" style="display: none;">Category</p>
+                                    <p style="font-size: 16px; color: #666666;">Best regards,<br>IT-Change-Managers@dell.com</p>
+                                </td>
+                                </tr>
+                            </table>
+                            </body>
+                            </html>
+    '''    
+    return body_mail
 
 
 # Main Window
@@ -155,7 +158,7 @@ text_box = scrolledtext.ScrolledText(frame_text_box, wrap=tk.WORD, width=40, hei
 text_box.pack(fill="both", expand=True)
 
 # Create the "Enviar" button
-send_button = tk.Button(window, text="Enviar", command=send_button_click, font=("Arial", 12))
+send_button = tk.Button(window, text="Send", command=send_email, font=("Arial", 12))
 send_button.pack(pady=10)
 
 # Start the main loop
