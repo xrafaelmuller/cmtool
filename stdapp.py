@@ -46,6 +46,7 @@ def create_short(parent):
     entry.pack(fill="x", padx=10, pady=(0, 10))
     return entry
 
+
 # Main Window
 window = tk.Tk()
 window.geometry("800x700")
@@ -78,6 +79,7 @@ entry_category_options = ["Application - Code", "Application - Configuration", "
                            "Application & Database - Configuration", "Database", "Database - Code", "Database - Configuration",
                            "Facilities - Building", "Facilities - Data Center", "Middleware", "Network", "Server", "Security",
                            "Storage", "Voice / Telecom"]
+
 dropdown = create_category(frame_request_details, entry_category_options)
 
 
@@ -87,6 +89,7 @@ date_entry = create_date_entry(frame_request_details)
 # Create a frame for the text box
 frame_text_box = ttk.LabelFrame(window, text="Configuration Items", padding=(10, 5))
 frame_text_box.pack(padx=5, pady=5, fill="both", expand=False)
+entry_configuration_items = create_configuration_items(frame_text_box)
 
 def send_email():
     mail_sender = entry_sender.get()
@@ -104,6 +107,7 @@ def send_email():
     inputed_activity = entry_short_description.get()
     selected_category = dropdown.get()
     selected_date = date_entry.get()
+    inputed_configuration_items = entry_configuration_items.get()
     subject_mail = f"{request_item_number} - "f"{inputed_activity}"
     body_mail = update_body_mail_email()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
@@ -111,6 +115,7 @@ def send_email():
     body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
     body_mail = body_mail.replace("XXActivityXX", inputed_activity)
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
+    body_mail = body_mail.replace("XXCONFIGITEMSXX", inputed_configuration_items)
 
 
     try:
@@ -153,7 +158,9 @@ def update_body_mail_email():
                                     <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://www.google.com" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; color: #666666;"><strong>Standard Change type: </strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; color: #666666;"><strong>Activity: </strong> XXActivityXX</li>
-                                    <p style="font-size: 16px; color: #666666;">Best regards,<br>IT-Change-Managers@dell.com</p>
+                                    <p style="font-size: 16px; color: #666666;"> It has been authorized to be used with the following Configuration Items: </p>
+                                    <li style="font-size: 16px; color: #666666;"><strong> XXCONFIGITEMSXX </strong> </li>
+                                    <p style="font-size: 16px; color: #666666;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
                                 </td>
                                 </tr>
                             </table>
