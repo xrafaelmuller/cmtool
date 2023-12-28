@@ -144,8 +144,6 @@ def update_body_mail_email():
                                     <p style="font-size: 16px; color: #666666;">Please refer to KB0912448: How To: Submit a Standard Change / Standard Change Job Aid for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; color: #666666;">Standard Change type: XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; color: #666666;">Activity: XXActivityXX</li>
-                                    <p id="paragrafo-invisivel3" style="display: none;">Configuration_item</p>
-                                    <p id="paragrafo-invisivel4" style="display: none;">Category</p>
                                     <p style="font-size: 16px; color: #666666;">Best regards,<br>IT-Change-Managers@dell.com</p>
                                 </td>
                                 </tr>
