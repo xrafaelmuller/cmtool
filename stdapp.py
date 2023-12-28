@@ -104,7 +104,7 @@ def send_email():
     inputed_activity = entry_short_description.get()
     selected_category = dropdown.get()
     selected_date = date_entry.get()
-    subject_mail = f"{request_item_number} - Review"
+    subject_mail = f"{request_item_number} - "f"{inputed_activity}"
     body_mail = update_body_mail_email()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
     body_mail = body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
