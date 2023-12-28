@@ -94,16 +94,25 @@ def send_email():
         messagebox.showerror("Error", "Please fill out the CM Email Field.")
         return
 
+
+
+
+    ## Replacement code block
     username, domain = mail_sender.split("@")
     c_coordinator = username.split("_")
-
     request_item_number = entry_ritm.get()
+    inputed_activity = entry_short_description.get()
+    selected_category = dropdown.get()
+    selected_date = date_entry.get()
     subject_mail = f"{request_item_number} - Review"
     body_mail = update_body_mail_email()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
     body_mail = body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
-    body_mail = body_mail.replace("XXSTDTYPEXX",  '\n'.join(entry_category_options))
-                                    
+    body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
+    body_mail = body_mail.replace("XXActivityXX", inputed_activity)
+    body_mail = body_mail.replace("XXXDATEXXX", selected_date)
+
+
     try:
         outlook = win32com.client.Dispatch('Outlook.Application')
         namespace = outlook.GetNamespace("MAPI")
@@ -141,9 +150,9 @@ def update_body_mail_email():
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                                     <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; color: #666666;">Your request RITMXXXXXXX for a new Standard Change, XXActivityXX was approved by CAB as a Standard Change on XXXDATEXXX</p>
-                                    <p style="font-size: 16px; color: #666666;">Please refer to KB0912448: How To: Submit a Standard Change / Standard Change Job Aid for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
-                                    <li style="font-size: 16px; color: #666666;">Standard Change type: XXSTDTYPEXX</li>
-                                    <li style="font-size: 16px; color: #666666;">Activity: XXActivityXX</li>
+                                    <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://www.google.com" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <li style="font-size: 16px; color: #666666;"><strong>Standard Change type: </strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; color: #666666;"><strong>Activity: </strong> XXActivityXX</li>
                                     <p style="font-size: 16px; color: #666666;">Best regards,<br>IT-Change-Managers@dell.com</p>
                                 </td>
                                 </tr>
