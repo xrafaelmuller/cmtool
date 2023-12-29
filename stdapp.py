@@ -52,7 +52,7 @@ def create_config(parent):
 
 # Main Window
 window = tk.Tk()
-window.geometry("800x700")
+window.geometry("600x600")
 window.title("Standard Change - Lazy Manager")
 
 # Main Label
