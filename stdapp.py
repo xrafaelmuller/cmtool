@@ -5,8 +5,6 @@ from tkcalendar import DateEntry
 from tkinter import messagebox
 import win32com.client  # Import win32com.client for Outloo
 
-
-
 # Clipboard enablement
 def add_copied_text():
     win32.OpenClipboard()
@@ -42,10 +40,15 @@ def create_date_entry(parent):
 
 # Function to create a short entry field
 def create_short(parent):
-    entry = tk.Entry(parent, font=("Arial", 10), width=25)
-    entry.pack(fill="x", padx=10, pady=(0, 10))
-    return entry
+    short = tk.Entry(parent, font=("Arial", 10), width=25)
+    short.pack(fill="x", padx=10, pady=(0, 10))
+    return short
 
+# Function to create a short entry field
+def create_config(parent):
+    config = tk.Entry(parent, font=("Arial", 10), width=25)
+    config.pack(fill="x", padx=10, pady=(0, 10))
+    return config
 
 # Main Window
 window = tk.Tk()
@@ -82,22 +85,19 @@ entry_category_options = ["Application - Code", "Application - Configuration", "
 
 dropdown = create_category(frame_request_details, entry_category_options)
 
-
 create_label(frame_request_details, "CAB Approval Date:")
 date_entry = create_date_entry(frame_request_details)
 
-# Create a frame for the text box
-frame_text_box = ttk.LabelFrame(window, text="Configuration Items", padding=(10, 5))
-frame_text_box.pack(padx=5, pady=5, fill="both", expand=False)
-entry_configuration_items = create_configuration_items(frame_text_box)
+frame_aditional_info = ttk.LabelFrame(window, text="Configuration Items", padding=(10, 5), height=100)
+frame_aditional_info.pack(padx=5, pady=5, fill="both", expand=False)
+config_item = create_config(frame_aditional_info)
+
 
 def send_email():
     mail_sender = entry_sender.get()
     if not mail_sender:
         messagebox.showerror("Error", "Please fill out the CM Email Field.")
         return
-
-
 
 
     ## Replacement code block
@@ -107,7 +107,7 @@ def send_email():
     inputed_activity = entry_short_description.get()
     selected_category = dropdown.get()
     selected_date = date_entry.get()
-    inputed_configuration_items = entry_configuration_items.get()
+    inputed_configuration_items = config_item.get()
     subject_mail = f"{request_item_number} - "f"{inputed_activity}"
     body_mail = update_body_mail_email()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
@@ -155,12 +155,13 @@ def update_body_mail_email():
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                                     <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; color: #666666;">Your request RITMXXXXXXX for a new Standard Change, XXActivityXX was approved by CAB as a Standard Change on XXXDATEXXX</p>
-                                    <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://www.google.com" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; color: #666666;"><strong>Standard Change type: </strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; color: #666666;"><strong>Activity: </strong> XXActivityXX</li>
                                     <p style="font-size: 16px; color: #666666;"> It has been authorized to be used with the following Configuration Items: </p>
                                     <li style="font-size: 16px; color: #666666;"><strong> XXCONFIGITEMSXX </strong> </li>
                                     <p style="font-size: 16px; color: #666666;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
+                                    <p style="font-size: 16px; color: #666666;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
                                 </td>
                                 </tr>
                             </table>
@@ -169,9 +170,7 @@ def update_body_mail_email():
     '''    
     return body_mail
 
-# Create a scrolled text widget
-text_box = scrolledtext.ScrolledText(frame_text_box, wrap=tk.WORD, width=40, height=10, font=("Arial", 10))
-text_box.pack(fill="both", expand=True)
+
 
 # Create the "Enviar" button
 send_button = tk.Button(window, text="Send", command=send_email, font=("Arial", 12))
