@@ -1,5 +1,6 @@
 import tkinter as tk
 import win32
+import babel.numbers
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
 from tkinter import messagebox
@@ -155,7 +156,7 @@ def update_body_mail_email():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                                     <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; color: #666666;">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; color: #666666;">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX <strong></p>
                                     <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; color: #666666;"><strong>Standard Change type: </strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; color: #666666;"><strong>Change Activity: </strong> XXActivityXX</li>
