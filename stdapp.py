@@ -164,7 +164,7 @@ def update_body_mail_email():
                              </td>
                                 </tr>
                                 <tr>
-                                <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                                <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; font-family: 'Arial'; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
                                     <p style="font-size: 16px; font-family: 'Arial'; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
