@@ -51,6 +51,11 @@ def create_config(parent):
     config.pack(fill="x", padx=10, pady=(0, 10))
     return config
 
+def create_hyperlink(parent):
+    config = tk.Entry(parent, font=("Arial", 10), width=25)
+    config.pack(fill="x", padx=10, pady=(0, 10))
+    return config
+
 # Main Window
 window = tk.Tk()
 window.geometry("600x600")
@@ -77,6 +82,9 @@ frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 
 create_label(frame_request_details, "Standard Activity:")
 entry_short_description = create_short(frame_request_details)
+
+create_label(frame_request_details, "Activity Link")
+entry_activity_hyperlink = create_hyperlink(frame_request_details)
 
 create_label(frame_request_details, "Category:")
 entry_category_options = ["Application - Code", "Application - Configuration", "Application & Database - Code",
@@ -109,6 +117,7 @@ def send_email():
     selected_category = dropdown.get()
     selected_date = date_entry.get()
     inputed_configuration_items = config_item.get()
+    inputed_hyperlink = entry_activity_hyperlink.get()
     subject_mail = f"{request_item_number} - "f"{inputed_activity}"
     body_mail = update_body_mail_email()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
@@ -117,6 +126,7 @@ def send_email():
     body_mail = body_mail.replace("XXActivityXX", inputed_activity)
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
     body_mail = body_mail.replace("XXCONFIGITEMSXX", inputed_configuration_items)
+    body_mail = body_mail.replace("XXXHYPERLINKXXX", inputed_hyperlink)
 
 
     try:
@@ -157,8 +167,9 @@ def update_body_mail_email():
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                                     <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; color: #666666;">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; color: #666666;">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
                                     <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
-                                    <li style="font-size: 16px; color: #666666;"><strong>Standard Change type: </strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; color: #666666;"><strong>Standard Change Type: </strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; color: #666666;"><strong>Change Activity: </strong> XXActivityXX</li>
                                     <p style="font-size: 16px; color: #666666;"> It has been authorized to be used with the following Configuration Items: </p>
                                     <li style="font-size: 16px; color: #666666;"><strong> XXCONFIGITEMSXX </strong> </li>
