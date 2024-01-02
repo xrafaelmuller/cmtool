@@ -165,18 +165,18 @@ def update_body_mail_email():
                                 </tr>
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
-                                    <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; color: #666666;">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
-                                    <p style="font-size: 16px; color: #666666;">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
-                                    <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
-                                    <li style="font-size: 16px; color: #666666;"><strong>Standard Change Type: </strong> XXSTDTYPEXX</li>
-                                    <li style="font-size: 16px; color: #666666;"><strong>Change Activity: </strong> XXActivityXX</li>
-                                    <p style="font-size: 16px; color: #666666;"> It has been authorized to be used with the following Configuration Items: </p>
-                                    <li style="font-size: 16px; color: #666666;"><strong> XXCONFIGITEMSXX </strong> </li>
-                                    <p style="font-size: 16px; color: #666666;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
-                                    <p style="font-size: 16px; color: #666666;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
-                                    <li style="font-size: 16px; color: #666666;"> Who is using this Standard Change activity </li>
-                                    <li style="font-size: 16px; color: #666666;"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
+                                    <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <li style="font-size: 14px; font-family: 'Arial', sans-serif; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; font-family: 'Arial';"><strong>Change Activity: </strong> XXActivityXX</li>
+                                    <p style="font-size: 16px; font-family: 'Arial'; "> It has been authorized to be used with the following Configuration Items: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial';"><strong> XXCONFIGITEMSXX </strong> </li>
+                                    <p style="font-size: 16px; font-family: 'Arial';">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial';">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial';"> Who is using this Standard Change activity </li>
+                                    <li style="font-size: 16px; font-family: 'Arial';"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
                                 </td>
                                 </tr>
                             </table>
