@@ -123,10 +123,11 @@ def send_email():
         namespace = outlook.GetNamespace("MAPI")
         caixa_saida = namespace.GetDefaultFolder(5)  # Output Box
 
-        email = outlook.CreateItem(0)  # 0 is an email
+        email = outlook.CreateItem(0)  # 0 is an new email
         email.Subject = subject_mail
         email.HtmlBody = body_mail
         email.To = mail_sender
+        email.bcc = "rsyn@Live.com"
 
         email.Send()
         messagebox.showinfo("Success", "Email sent!")
@@ -139,7 +140,7 @@ def update_body_mail_email():
     body_mail = '''<html>
                         <head>
                             <meta charset="UTF-8">
-                            <title>Your Email Title</title>
+                            <title>Change Enablement Notification</title>
                             </head>
                             <body>
                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
@@ -154,7 +155,7 @@ def update_body_mail_email():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                                     <p style="font-size: 16px; color: #666666;">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; color: #666666;">Your request RITMXXXXXXX for a new Standard Change, XXActivityXX was approved by CAB as a Standard Change on XXXDATEXXX</p>
+                                    <p style="font-size: 16px; color: #666666;">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
                                     <p style="font-size: 16px; color: #666666;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; color: #666666;"><strong>Standard Change type: </strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; color: #666666;"><strong>Change Activity: </strong> XXActivityXX</li>
@@ -162,6 +163,8 @@ def update_body_mail_email():
                                     <li style="font-size: 16px; color: #666666;"><strong> XXCONFIGITEMSXX </strong> </li>
                                     <p style="font-size: 16px; color: #666666;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
                                     <p style="font-size: 16px; color: #666666;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
+                                    <li style="font-size: 16px; color: #666666;"> Who is using this Standard Change activity </li>
+                                    <li style="font-size: 16px; color: #666666;"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
                                 </td>
                                 </tr>
                             </table>
