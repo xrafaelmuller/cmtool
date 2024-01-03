@@ -112,12 +112,27 @@ def send_email():
     ## Replacement code block
     username, domain = mail_sender.split("@")
     c_coordinator = username.split("_")
+    
+    ##Validation code block
     request_item_number = entry_ritm.get()
+    if not request_item_number:
+        messagebox.showerror("Error", "Please fill out the Request Item Field.")
+        return
+    
     inputed_activity = entry_short_description.get()
+    if not inputed_activity:
+        messagebox.showerror("Error", "Please fill out the Short Description Field.")
+        return
+    
     selected_category = dropdown.get()
     selected_date = date_entry.get()
+
     inputed_configuration_items = config_item.get()
     inputed_hyperlink = entry_activity_hyperlink.get()
+    if not inputed_hyperlink:
+        messagebox.showerror("Error", "Please fill out the Activity Link Field.")
+        return
+
     subject_mail = f"{request_item_number} - "f"{inputed_activity}"
     body_mail = update_body_mail_email()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
@@ -125,8 +140,14 @@ def send_email():
     body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
     body_mail = body_mail.replace("XXActivityXX", inputed_activity)
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
-    body_mail = body_mail.replace("XXCONFIGITEMSXX", inputed_configuration_items)
     body_mail = body_mail.replace("XXXHYPERLINKXXX", inputed_hyperlink)
+
+    if inputed_configuration_items is None:
+        body_mail = body_mail.replace('<p style="font-size: 16px; display: none; font-family: \'Arial\'; ">It has been authorized to be used with the following Configuration Items:</p>', '<p style="font-size: 16px; font-family: \'Arial\'; ">It has been authorized to be used with the following Configuration Items:</p>')
+        body_mail = body_mail.replace('<p style="font-size: 16px; display: none; font-family: \'Arial\';"><strong>XXCONFIGITEMSXX</strong></p>', '<p style="font-size: 16px; font-family: \'Arial\';"><strong>XXCONFIGITEMSXX</strong></p>')
+        body_mail = body_mail.replace('XXCONFIGITEMSXX', inputed_configuration_items)
+
+        
 
 
     try:
@@ -146,7 +167,7 @@ def send_email():
         messagebox.showerror("Error", f": {str(e)}")
 
 
-#Update email body with selected option in the checkboxes#
+#EMAIL
 def update_body_mail_email():
     body_mail = '''<html>
                         <head>
@@ -171,8 +192,8 @@ def update_body_mail_email():
                                     <p style="font-size: 16px; font-family: 'Arial'; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 14px; font-family: 'Arial', sans-serif; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; font-family: 'Arial';"><strong>Change Activity: </strong> XXActivityXX</li>
-                                    <p style="font-size: 16px; font-family: 'Arial'; "> It has been authorized to be used with the following Configuration Items: </p>
-                                    <li style="font-size: 16px; font-family: 'Arial';"><strong> XXCONFIGITEMSXX </strong> </li>
+                                    <p style="font-size: 16px; display: none; font-family: 'Arial'; "> It has been authorized to be used with the following Configuration Items: </p>
+                                    <p style="font-size: 16px; display: none; font-family: 'Arial';"><strong> XXCONFIGITEMSXX </strong> </p>
                                     <p style="font-size: 16px; font-family: 'Arial';">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
                                     <p style="font-size: 16px; font-family: 'Arial';">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
                                     <li style="font-size: 16px; font-family: 'Arial';"> Who is using this Standard Change activity </li>
