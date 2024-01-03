@@ -171,7 +171,7 @@ def send_std_email():
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
     body_mail = body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
     body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
-    body_mail = body_mail.replace("XXActivityXX", inputed_activity)
+    body_mail = body_mail.replace("XXXACTIVITYXXX", inputed_activity)
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
     body_mail = body_mail.replace("XXXHYPERLINKXXX", inputed_hyperlink)
 
@@ -220,11 +220,11 @@ def std_creation_html():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXActivityXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
                                     <p style="font-size: 16px; font-family: 'Arial'; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
                                     <p style="font-size: 16px; font-family: 'Arial'; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 14px; font-family: 'Arial', sans-serif; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
-                                    <li style="font-size: 16px; font-family: 'Arial';"><strong>Change Activity: </strong> XXActivityXX</li>
+                                    <li style="font-size: 16px; font-family: 'Arial';"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
                                     <p style="font-size: 16px; display: none; font-family: 'Arial'; "> It has been authorized to be used with the following Configuration Items: </p>
                                     <p style="font-size: 16px; display: none; font-family: 'Arial';"><strong> XXCONFIGITEMSXX </strong> </p>
                                     <p style="font-size: 16px; font-family: 'Arial';">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
@@ -272,7 +272,9 @@ def send_incident_email():
     subject_mail = "Action Required: Review Standard Change "f"{inc_change_record}" "that caused an Incident"
     inc_body_mail = inc_caused_html()
     inc_body_mail = inc_body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
-    inc_body_mail = inc_body_mail.replace("XXActivityXX", inc_activity)     
+    inc_body_mail = inc_body_mail.replace("XXXCHANGENUMBERXXX", inc_change_record)
+    inc_body_mail = inc_body_mail.replace("XXXACTIVITYXXX", inc_activity)
+
 
 
     try:
@@ -293,7 +295,42 @@ def send_incident_email():
 
 
 def inc_caused_html():
-    inc = "inc"
+    inc_body_mail = '''<html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>Change Enablement Notification</title>
+                            </head>
+                            <body>
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+                             <tr>
+                               <td width="510" style="width:382.75pt;background:#0076CE;padding:0cm 5.4pt 0cm 5.4pt;
+                                height:69.55pt">
+                                <p class="MsoNormal"><a name="_MailAutoSig"><span style="font-size:15.0pt;
+                                font-family:&quot;Arial&quot;,sans-serif;color:#F2F2F2;mso-no-proof:yes">Change
+                                Enablement Notification</span><span style="mso-no-proof:yes"><o:p></o:p></span></a></p>
+                             </td>
+                                </tr>
+                                <tr>
+                                <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
+                                    <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Your Change record XXXCHANGENUMBERXXX has caused the below Incident:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Change Short Description: XXXACTIVITYXXX</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <li style="font-size: 14px; font-family: 'Arial', sans-serif; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; font-family: 'Arial';"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
+                                    <p style="font-size: 16px; display: none; font-family: 'Arial'; "> It has been authorized to be used with the following Configuration Items: </p>
+                                    <p style="font-size: 16px; display: none; font-family: 'Arial';"><strong> XXCONFIGITEMSXX </strong> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial';">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial';">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial';"> Who is using this Standard Change activity </li>
+                                    <li style="font-size: 16px; font-family: 'Arial';"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
+                                </td>
+                                </tr>
+                            </table>
+                            </body>
+                            </html>
+    '''    
+    return inc_body_mail
 
 
 
