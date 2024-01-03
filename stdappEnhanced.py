@@ -61,77 +61,86 @@ def create_hyperlink(parent):
     config.pack(fill="x", padx=10, pady=(0, 10))
     return config
 
+def create_change_number(parent):
+    change_number = tk.Entry(parent, font=("Arial", 10), width=25)
+    change_number.pack(fill="x", padx=10, pady=(0, 10))
+    return change_number
+
+def create_incident_number(parent):
+    incident_number = tk.Entry(parent, font=("Arial", 10), width=25)
+    incident_number.pack(fill="x", padx=10, pady=(0, 10))
+    return incident_number
+
 # Main Window
 cmtool_window = tk.Tk()
-cmtool_window.geometry("600x600")
+cmtool_window.geometry("600x650")
 cmtool_window.title("CM Tool")
 
 # Main Label
 cmtool_label = tk.Label(cmtool_window, text="Welcome to CM Tool!", font=("Arial", 12))
 cmtool_label.pack(pady=10)
 
-
 # Create a Tab Control
 tab_control = ttk.Notebook(cmtool_window)
-
 # Create tabs
 tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
-
 # Add tabs to the Tab Control
 tab_control.add(tab1, text="Standard Change Creation")
 tab_control.add(tab2, text="Incident Caused By Change")
-
 # Bind the tab change event to a function
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
-
 # Pack the Tab Control
 tab_control.pack(expand=1, fill="both")
 
 
-# Create a frame to group related fields
+# Create a frame to group related fields for Std Change Creation Tab
 frame_request_info = ttk.LabelFrame(tab1, text="Request Information", padding=(5, 5))
 frame_request_info.pack(padx=5, pady=5, fill="both", expand=False)
 
 # Input Fields
 create_label(frame_request_info, "Change Coordinator Email:")
 entry_sender = create_entry(frame_request_info, width=30)
-
 create_label(frame_request_info, "Request Item Number:")
 entry_ritm = create_entry(frame_request_info, width=30)
-
-# Create a frame to group related fields
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(10, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
-
 create_label(frame_request_details, "Standard Activity:")
 entry_short_description = create_short(frame_request_details)
-
 create_label(frame_request_details, "Activity Link")
 entry_activity_hyperlink = create_hyperlink(frame_request_details)
-
 create_label(frame_request_details, "Category:")
 entry_category_options = ["Application - Code", "Application - Configuration", "Application & Database - Code",
                            "Application & Database - Configuration", "Database", "Database - Code", "Database - Configuration",
                            "Facilities - Building", "Facilities - Data Center", "Middleware", "Network", "Server", "Security",
                            "Storage", "Voice / Telecom"]
-
 dropdown = create_category(frame_request_details, entry_category_options)
-
 create_label(frame_request_details, "CAB Approval Date:")
 date_entry = create_date_entry(frame_request_details)
-
 frame_aditional_info = ttk.LabelFrame(tab1, text="Configuration Items", padding=(10, 5), height=100)
 frame_aditional_info.pack(padx=5, pady=5, fill="both", expand=False)
 config_item = create_config(frame_aditional_info)
 
+################################################################
+# Create a frame to group related fields for Incident Caused Tab Tab
+frame_incident_caused = ttk.LabelFrame(tab2, text="Change Activity Details", padding=(10, 5), height=100)
+frame_incident_caused.pack(padx=5, pady=5, fill="both", expand=False)
+create_label(frame_incident_caused, "Change Coordinator Email:")
+entry_sender = create_entry(frame_incident_caused, width=30)
+create_label(frame_incident_caused, "Change Activity:")
+entry_change_activity = create_short(frame_incident_caused)
+create_label(frame_incident_caused, "Change Record:")
+entry_change_number = create_change_number(frame_incident_caused)
+create_label(frame_incident_caused, "Incident(s):")
+entry_incident_number = create_incident_number(frame_incident_caused)
 
-def send_email():
+
+
+def send_std_email():
     mail_sender = entry_sender.get()
     if not mail_sender:
         messagebox.showerror("Error", "Please fill out the CM Email Field.")
         return
-
 
     ## Replacement code block
     username, domain = mail_sender.split("@")
@@ -158,7 +167,7 @@ def send_email():
         return
 
     subject_mail = f"{request_item_number} - "f"{inputed_activity}"
-    body_mail = update_body_mail_email()
+    body_mail = std_creation_html()
     body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
     body_mail = body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
     body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
@@ -192,7 +201,7 @@ def send_email():
 
 
 #EMAIL
-def update_body_mail_email():
+def std_creation_html():
     body_mail = '''<html>
                         <head>
                             <meta charset="UTF-8">
@@ -232,8 +241,75 @@ def update_body_mail_email():
 
 
 
+###INCIDENT CAUSED BY CHANGE EMAIL SINTAX ###
+def send_incident_email():
+    mail_sender = entry_sender.get()
+    if not mail_sender:
+        messagebox.showerror("Error", "Please fill out the CM Email Field.")
+        return
+
+    ## Replacement code block
+    username, domain = mail_sender.split("@")
+    c_coordinator = username.split("_")
+    
+    ##Validation code block    
+    inc_activity = entry_change_activity.get()
+    if not inc_activity:
+        messagebox.showerror("Error", "eld.")
+        return
+
+    inc_change_record = entry_change_number.get()
+    if not inc_change_record:
+        messagebox.showerror("Error", "Please fill out the Change Number Field.")
+        return
+    
+    inc_incident_number = entry_incident_number.get()
+    if not inc_incident_number:
+        messagebox.showerror("Error", "Please fill out the Incident(s) Field.")
+        return
+
+
+    subject_mail = "Action Required: Review Standard Change "f"{inc_change_record}" "that caused an Incident"
+    inc_body_mail = inc_caused_html()
+    inc_body_mail = inc_body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
+    inc_body_mail = inc_body_mail.replace("XXActivityXX", inc_activity)     
+
+
+    try:
+        outlook = win32com.client.Dispatch('Outlook.Application')
+        namespace = outlook.GetNamespace("MAPI")
+        caixa_saida = namespace.GetDefaultFolder(5)  # Output Box
+
+        email = outlook.CreateItem(0)  # 0 is an new email
+        email.Subject = subject_mail
+        email.HtmlBody = inc_body_mail
+        email.To = mail_sender
+        ##email.bcc = "rsyn@live.com"
+
+        email.Send()
+        messagebox.showinfo("Success", "Email sent!")
+    except Exception as e:
+        messagebox.showerror("Error", f": {str(e)}")
+
+
+def inc_caused_html():
+    inc = "inc"
+
+
+
+
+
+
+
+
+
+
+# Create the "Send" button for first window
+send_button = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
+send_button.pack(pady=10)
+
 # Create the "Enviar" button
-send_button = tk.Button(cmtool_window, text="Send", command=send_email, font=("Arial", 12))
+send_button = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
 send_button.pack(pady=10)
 
 # Start the main loop
