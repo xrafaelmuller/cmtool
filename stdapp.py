@@ -6,6 +6,7 @@ from tkcalendar import DateEntry
 from tkinter import messagebox
 import win32com.client  # Import win32com.client for Outloo
 
+
 # Clipboard enablement
 def add_copied_text():
     win32.OpenClipboard()
