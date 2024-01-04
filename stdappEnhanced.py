@@ -269,7 +269,7 @@ def send_incident_email():
         return
 
 
-    subject_mail = "Action Required: Review Standard Change "f"{inc_change_record}" "that caused an Incident"
+    subject_mail = "Action Required: Review Standard Change "f"{inc_change_record}" " that caused an Incident"
     inc_body_mail = inc_caused_html()
     inc_body_mail = inc_body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
     inc_body_mail = inc_body_mail.replace("XXXCHANGENUMBERXXX", inc_change_record)
