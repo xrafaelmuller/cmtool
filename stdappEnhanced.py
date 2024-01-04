@@ -348,15 +348,11 @@ Was your Change a Standard Change? </li>
 
 
 
-
-
-
-
 # Create the "Send" button for first window
 send_button = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
 send_button.pack(pady=10)
 
-# Create the "Enviar" button
+# Create the "Send" button for second window
 send_button = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
 send_button.pack(pady=10)
 
