@@ -220,17 +220,17 @@ def std_creation_html():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
-                                    <li style="font-size: 14px; font-family: 'Arial', sans-serif; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
-                                    <li style="font-size: 16px; font-family: 'Arial';"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
-                                    <p style="font-size: 16px; display: none; font-family: 'Arial'; "> It has been authorized to be used with the following Configuration Items: </p>
-                                    <p style="font-size: 16px; display: none; font-family: 'Arial';"><strong> XXCONFIGITEMSXX </strong> </p>
-                                    <p style="font-size: 16px; font-family: 'Arial';">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
-                                    <p style="font-size: 16px; font-family: 'Arial';">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
-                                    <li style="font-size: 16px; font-family: 'Arial';"> Who is using this Standard Change activity </li>
-                                    <li style="font-size: 16px; font-family: 'Arial';"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <li style="font-size: 14px; font-family: 'Arial', text-allign: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; font-family: 'Arial', text-allign: justify;"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
+                                    <p style="font-size: 16px; display: none; font-family: 'Arial' , text-allign: justify; "> It has been authorized to be used with the following Configuration Items: </p>
+                                    <p style="font-size: 16px; display: none; font-family: 'Arial , text-allign: justify';"><strong> XXCONFIGITEMSXX </strong> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial' , text-allign: justify;"> Who is using this Standard Change activity </li>
+                                    <li style="font-size: 16px; font-family: 'Arial' , text-allign: justify;"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
                                 </td>
                                 </tr>
                             </table>
@@ -313,28 +313,28 @@ def inc_caused_html():
                                 </tr>
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
-                                    <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Your Change record XXXCHANGENUMBERXXX has caused the below Incident:</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Change Short Description: XXXACTIVITYXXX</a></p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; ">Incident(s): XXXINCIDENTXXX</p>
-                                    <p style="font-size: 16px; font-family: 'Arial';"><strong>What to do Next...</strong></p>
-                                    <p style="font-size: 16px; font-family: 'Arial';"> Review the details of the Incident and determine why your Change was identified as the cause.</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; "> If you agree that your Change did cause the Incident, then you will need to update the state of your Change to ‘Closed Incomplete’. </p>
-                                    <p style="font-size: 16px; font-family: 'Arial';">If you do not agree that your Change caused the Incident: </p>
-                                    <li style="font-size: 16px; font-family: 'Arial';">Work with the individual who associated your Change to the Incident for a better understanding and potential removal of the association. You can check in the RFC Notes tab activities on who had associated the INC to the Change. There is a statement with the individual’s name as illustrated below: 
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify; ">Dear Change_Coordinator,</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Your Change record XXXCHANGENUMBERXXX has caused the below Incident:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Change Short Description: XXXACTIVITYXXX</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Incident(s): XXXINCIDENTXXX</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>What to do Next...</strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> Review the details of the Incident and determine why your Change was identified as the cause.</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If you agree that your Change did cause the Incident, then you will need to update the state of your Change to ‘Closed Incomplete’. </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you do not agree that your Change caused the Incident: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Work with the individual who associated your Change to the Incident for a better understanding and potential removal of the association. You can check in the RFC Notes tab activities on who had associated the INC to the Change. There is a statement with the individual’s name as illustrated below: 
                   <Individual Name>
                       incident INCxxxxxxxx has been added from the 'incidents caused by change' related list </li>
-                                    <li style="font-size: 16px; font-family: 'Arial';"> If there is a consensus that the Change did not cause any Incident, the individual who associated the Incident to the Change should remove the association </li>
-                                    <li style="font-size: 16px; font-family: 'Arial';"> If the ‘Caused by Change’ field in the Incident is locked (greyed out), then you can reach out to the Change Manager assigned to your Change for assistance </li>
-                                    <li style="font-size: 16px; font-family: 'Arial';"> If you are successful in removing the association of the Incident to your Change, the Change may be closed as ‘Closed Complete’
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If there is a consensus that the Change did not cause any Incident, the individual who associated the Incident to the Change should remove the association </li>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If the ‘Caused by Change’ field in the Incident is locked (greyed out), then you can reach out to the Change Manager assigned to your Change for assistance </li>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If you are successful in removing the association of the Incident to your Change, the Change may be closed as ‘Closed Complete’
 Was your Change a Standard Change? </li>
-                                    <p style="font-size: 16px; font-family: 'Arial';"><strong> Was your Change a Standard Change? </strong></p>
-                                    <p style="font-size: 16px; font-family: 'Arial';">Your Standard Change will immediately be deactivated from the Service Catalog (“Revoked”). </p>
-                                    <p style="font-size: 16px; font-family: 'Arial';">If you were successful in removing the association of your Change to the Incident (as noted above), your Standard Change may be reactivated upon providing that evidence the Change Enablement team.</p>                                  
-                                    <p style="font-size: 16px; font-family: 'Arial';">If you were not successful in removing the association of your Change to the Incident and you wish to have the Standard Change reactivated, you must follow the instructions provided in the following KB article:</p>
-                                    <p style="font-size: 16px; font-family: 'Arial';"> KB1068741 “Standard Change Activity Maintenance and New Proposals”. </p>
-                                    <p style="font-size: 16px; font-family: 'Arial';"> If approved by CAB, your Standard Change will be reactivated and once again be visible in the Service Catalog.</p>
-                                    <p style="font-size: 16px; font-family: 'Arial';"> Until reactivated, you will now need to follow the Normal Change process for these Change activities.</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong> Was your Change a Standard Change? </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Your Standard Change will immediately be deactivated from the Service Catalog (“Revoked”). </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you were successful in removing the association of your Change to the Incident (as noted above), your Standard Change may be reactivated upon providing that evidence the Change Enablement team.</p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you were not successful in removing the association of your Change to the Incident and you wish to have the Standard Change reactivated, you must follow the instructions provided in the following KB article:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> KB1068741 “Standard Change Activity Maintenance and New Proposals”. </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If approved by CAB, your Standard Change will be reactivated and once again be visible in the Service Catalog.</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> Until reactivated, you will now need to follow the Normal Change process for these Change activities.</p>
                                 </td>
                                 </tr>
                             </table>
