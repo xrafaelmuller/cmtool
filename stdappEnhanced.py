@@ -17,8 +17,10 @@ def add_copied_text():
     clipboard_data = win32.GetClipboardData()
     win32.CloseClipboard()
 
-    entry_sender.delete(0, tk.END)
-    entry_sender.insert(tk.END, clipboard_data)
+    entry_cm_std.delete(0, tk.END)
+    entry_cm_inc.delete(0, tk.END)
+    entry_cm_std.insert(tk.END, clipboard_data)
+    entry_cm_inc.insert(tk.END, clipboard_data)
 
 # Function to create labels
 def create_label(parent, text):
@@ -27,7 +29,12 @@ def create_label(parent, text):
     return label
 
 # Function to create entry fields
-def create_entry(parent, width):
+def create_cm_std(parent, width):
+    entry = tk.Entry(parent, font=("Arial", 10), width=width)
+    entry.pack(fill="x", padx=10, pady=(0, 10))
+    return entry
+
+def create_cm_inc(parent, width):
     entry = tk.Entry(parent, font=("Arial", 10), width=width)
     entry.pack(fill="x", padx=10, pady=(0, 10))
     return entry
@@ -100,9 +107,9 @@ frame_request_info.pack(padx=5, pady=5, fill="both", expand=False)
 
 # Input Fields
 create_label(frame_request_info, "Change Coordinator Email:")
-entry_sender = create_entry(frame_request_info, width=30)
+entry_cm_std = create_cm_std(frame_request_info, width=30)
 create_label(frame_request_info, "Request Item Number:")
-entry_ritm = create_entry(frame_request_info, width=30)
+entry_ritm = create_cm_std(frame_request_info, width=30)
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(10, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_request_details, "Standard Activity:")
@@ -126,7 +133,7 @@ config_item = create_config(frame_aditional_info)
 frame_incident_caused = ttk.LabelFrame(tab2, text="Change Activity Details", padding=(10, 5), height=100)
 frame_incident_caused.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_incident_caused, "Change Coordinator Email:")
-entry_sender = create_entry(frame_incident_caused, width=30)
+entry_cm_inc = create_cm_inc(frame_incident_caused, width=30)
 create_label(frame_incident_caused, "Change Activity:")
 entry_change_activity = create_short(frame_incident_caused)
 create_label(frame_incident_caused, "Change Record:")
@@ -137,7 +144,7 @@ entry_incident_number = create_incident_number(frame_incident_caused)
 
 
 def send_std_email():
-    mail_sender = entry_sender.get()
+    mail_sender = entry_cm_std.get()
     if not mail_sender:
         messagebox.showerror("Error", "Please fill out the CM Email Field.")
         return
@@ -243,7 +250,7 @@ def std_creation_html():
 
 ###INCIDENT CAUSED BY CHANGE EMAIL SINTAX ###
 def send_incident_email():
-    mail_sender = entry_sender.get()
+    mail_sender = entry_cm_inc.get()
     if not mail_sender:
         messagebox.showerror("Error", "Please fill out the CM Email Field.")
         return
