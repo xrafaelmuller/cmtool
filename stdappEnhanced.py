@@ -31,26 +31,28 @@ def create_label(parent, text):
 # Function to create entry fields
 def create_box(parent, width):
     entry = tk.Entry(parent, font=("Arial", 10))
-    entry.pack(fill="x", padx=5, pady=(0, 5))
+    entry.pack(fill="x", padx=5, pady=(5, 5))
     entry.configure(width=width)  # Set the width using configure
     return entry
 
 # Function to create a dropdown
 def create_dropdown(parent, options):
     combo = ttk.Combobox(parent, values=options, font=("Arial", 10), state="readonly")
-    combo.pack(fill="x", padx=10, pady=(0, 10))
+    combo.pack(fill="x", padx=10, pady=(5, 10))
     return combo
 
 # Function to create a date entry field
 def create_date_entry(parent):
     date_entry = DateEntry(parent, width=12, foreground='white', borderwidth=2, font=("Arial", 10))
-    date_entry.pack(fill="x", padx=10, pady=(0, 10))
+    date_entry.pack(fill="x", padx=10, pady=(5, 10))
     return date_entry
 
 # Main Window
 cmtool_window = tk.Tk()
-cmtool_window.geometry("600x650")
+cmtool_window.geometry("400x650")
 cmtool_window.title("CM Tool")
+cmtool_window.resizable(False, False)
+
 
 # Main Label
 cmtool_label = tk.Label(cmtool_window, text="Welcome to CM Tool!", font=("Arial", 12))
@@ -79,7 +81,7 @@ create_label(frame_request_info, "Change Coordinator Email:")
 entry_cm_std = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Item Number:")
 entry_ritm = create_box(frame_request_info, width=20)
-frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(10, 5), height=100)
+frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_request_details, "Standard Activity:")
 entry_short_description = create_box(frame_request_details, width=20)
@@ -95,7 +97,7 @@ dropdown = create_dropdown(frame_request_details, entry_category_options)
 
 create_label(frame_request_details, "CAB Approval Date:")
 date_entry = create_date_entry(frame_request_details)
-frame_aditional_info = ttk.LabelFrame(tab1, text="Configuration Items", padding=(10, 5), height=100)
+frame_aditional_info = ttk.LabelFrame(tab1, text="Configuration Items", padding=(5, 5), height=100)
 frame_aditional_info.pack(padx=5, pady=5, fill="both", expand=False)
 config_item = create_box(frame_aditional_info, width=5)
 
