@@ -29,18 +29,13 @@ def create_label(parent, text):
     return label
 
 # Function to create entry fields
-def create_cm_std(parent, width):
-    entry = tk.Entry(parent, font=("Arial", 10), width=width)
-    entry.pack(fill="x", padx=10, pady=(0, 10))
-    return entry
-
-def create_cm_inc(parent, width):
+def create_box(parent, width):
     entry = tk.Entry(parent, font=("Arial", 10), width=width)
     entry.pack(fill="x", padx=10, pady=(0, 10))
     return entry
 
 # Function to create a dropdown
-def create_category(parent, options):
+def create_dropdown(parent, options):
     combo = ttk.Combobox(parent, values=options, font=("Arial", 10), state="readonly")
     combo.pack(fill="x", padx=10, pady=(0, 10))
     return combo
@@ -50,33 +45,6 @@ def create_date_entry(parent):
     date_entry = DateEntry(parent, width=12, foreground='white', borderwidth=2, font=("Arial", 10))
     date_entry.pack(fill="x", padx=10, pady=(0, 10))
     return date_entry
-
-# Function to create a short entry field
-def create_short(parent):
-    short = tk.Entry(parent, font=("Arial", 10), width=25)
-    short.pack(fill="x", padx=10, pady=(0, 10))
-    return short
-
-# Function to create a short entry field
-def create_config(parent):
-    config = tk.Entry(parent, font=("Arial", 10), width=25)
-    config.pack(fill="x", padx=10, pady=(0, 10))
-    return config
-
-def create_hyperlink(parent):
-    config = tk.Entry(parent, font=("Arial", 10), width=25)
-    config.pack(fill="x", padx=10, pady=(0, 10))
-    return config
-
-def create_change_number(parent):
-    change_number = tk.Entry(parent, font=("Arial", 10), width=25)
-    change_number.pack(fill="x", padx=10, pady=(0, 10))
-    return change_number
-
-def create_incident_number(parent):
-    incident_number = tk.Entry(parent, font=("Arial", 10), width=25)
-    incident_number.pack(fill="x", padx=10, pady=(0, 10))
-    return incident_number
 
 # Main Window
 cmtool_window = tk.Tk()
@@ -107,39 +75,39 @@ frame_request_info.pack(padx=5, pady=5, fill="both", expand=False)
 
 # Input Fields
 create_label(frame_request_info, "Change Coordinator Email:")
-entry_cm_std = create_cm_std(frame_request_info, width=30)
+entry_cm_std = create_box(frame_request_info, width=30)
 create_label(frame_request_info, "Request Item Number:")
-entry_ritm = create_cm_std(frame_request_info, width=30)
+entry_ritm = create_box(frame_request_info, width=30)
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(10, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_request_details, "Standard Activity:")
-entry_short_description = create_short(frame_request_details)
+entry_short_description = create_box(frame_request_details, width=5)
 create_label(frame_request_details, "Activity Link")
-entry_activity_hyperlink = create_hyperlink(frame_request_details)
+entry_activity_hyperlink = create_box(frame_request_details, width=5)
 create_label(frame_request_details, "Category:")
 entry_category_options = ["Application - Code", "Application - Configuration", "Application & Database - Code",
                            "Application & Database - Configuration", "Database", "Database - Code", "Database - Configuration",
                            "Facilities - Building", "Facilities - Data Center", "Middleware", "Network", "Server", "Security",
                            "Storage", "Voice / Telecom"]
-dropdown = create_category(frame_request_details, entry_category_options)
+dropdown = create_dropdown(frame_request_details, entry_category_options)
 create_label(frame_request_details, "CAB Approval Date:")
 date_entry = create_date_entry(frame_request_details)
 frame_aditional_info = ttk.LabelFrame(tab1, text="Configuration Items", padding=(10, 5), height=100)
 frame_aditional_info.pack(padx=5, pady=5, fill="both", expand=False)
-config_item = create_config(frame_aditional_info)
+config_item = create_box(frame_aditional_info, width=5)
 
 ################################################################
 # Create a frame to group related fields for Incident Caused Tab Tab
 frame_incident_caused = ttk.LabelFrame(tab2, text="Change Activity Details", padding=(10, 5), height=100)
 frame_incident_caused.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_incident_caused, "Change Coordinator Email:")
-entry_cm_inc = create_cm_inc(frame_incident_caused, width=30)
+entry_cm_inc = create_box(frame_incident_caused, width=30)
 create_label(frame_incident_caused, "Change Activity:")
-entry_change_activity = create_short(frame_incident_caused)
+entry_change_activity = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Change Record:")
-entry_change_number = create_change_number(frame_incident_caused)
+entry_change_number = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Incident(s):")
-entry_incident_number = create_incident_number(frame_incident_caused)
+entry_incident_number = create_box(frame_incident_caused, width=5)
 
 
 
