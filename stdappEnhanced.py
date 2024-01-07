@@ -82,7 +82,11 @@ entry_cm_std = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Item Number:")
 entry_ritm = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Type:")
-entry_request_options = ["Propose a new Standard Change", "Modify an existing Standard Change – Update Documentation", "Modify an existing Standard Change – Retire from Catalog", "Modify an existing Standard Change – Change Ownership,","Modify an existing Standard Change – Add/Remove Configuration Items"]
+entry_request_options = ["Propose a new Standard Change", "Modify – Update Documentation",
+                         "Modify – Additional Scope", "Modify – Update Short Description",
+                         "Modify – Retire from Catalog", "Modify – Change Ownership",
+                         "Modify – Add Configuration Items", "Modify – Remove Configuration Items"
+                         ]
 dropdown_request = create_dropdown(frame_request_info, entry_request_options)
 
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5, 5), height=100)
@@ -158,13 +162,31 @@ def send_std_email():
     body_mail = body_mail.replace("XXXACTIVITYXXX", inputed_activity)
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
     body_mail = body_mail.replace("XXXHYPERLINKXXX", inputed_hyperlink)
+    body_mail = body_mail.replace("XXCONFIGITEMSXX", inputed_configuration_items)
+    
+    ### Condition if there is no CI's
+    if inputed_configuration_items == "":
+        body_mail = body_mail.replace("XXXIFINPUTEDXX", "")
+    else:
+        body_mail = body_mail.replace("XXXIFINPUTEDXX","It has been authorized to be used with the following Configuration Items:")
+
 
     if selected_request_type == "Propose a new Standard Change":
         body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "New Standard Change")
-    elif selected_request_type == "Modify an existing Standard Change – Update Documentation":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Update the documentation")
-    elif selected_request_type == "Modify an existing Standard Change – Retire from Catalog":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Retire from Catalog")        
+    elif selected_request_type == "Modify – Update Documentation":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Update documentation for your Standard Change Activity")
+    elif selected_request_type == "Modify – Additional Scope":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "include the additional scope for your Standard Change Activity")
+    elif selected_request_type == "Modify – Update Short Description":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "update the Short description for your Standard Change Activity")
+    elif selected_request_type == "Modify – Change Ownership":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Change the ownership of your Standard Change Activity") 
+    elif selected_request_type == "Modify – Retire from Catalog":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Retire from Catalog your Standard Change Activity")        
+    elif selected_request_type == "Modify – Add Configuration Items":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "include the additional CIs for your Standard Change Activity")
+    elif selected_request_type == "Modify – Remove Configuration Items":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "exclude the additional CIs from your Standard Change Activity")
 
 
     try:
@@ -204,17 +226,17 @@ def std_creation_html():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Your request <strong> RITMXXXXXXX </strong> for XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
-                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
-                                    <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
-                                    <li style="font-size: 14px; font-family: 'Arial', text-allign: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
-                                    <li style="font-size: 16px; font-family: 'Arial', text-allign: justify;"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
-                                    <p style="font-size: 16px; display: none; font-family: 'Arial' , text-allign: justify; "> It has been authorized to be used with the following Configuration Items: </p>
-                                    <p style="font-size: 16px; display: none; font-family: 'Arial , text-allign: justify';"><strong> XXCONFIGITEMSXX </strong> </p>
-                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
-                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
-                                    <li style="font-size: 16px; font-family: 'Arial' , text-allign: justify;"> Who is using this Standard Change activity </li>
-                                    <li style="font-size: 16px; font-family: 'Arial' , text-allign: justify;"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Your request <strong> RITMXXXXXXX </strong> to XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <li style="font-size: 14px; font-family: 'Arial', text-align: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; font-family: 'Arial', text-align: justify;"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify; "> XXXIFINPUTEDXX </p>
+                                    <p style="font-size: 16px; font-family: 'Arial , text-allign: justify;" ><strong> XXCONFIGITEMSXX </strong> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial' , text-align: justify;"> Who is using this Standard Change activity </li>
+                                    <li style="font-size: 16px; font-family: 'Arial' , text-align: justify;"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
                                 </td>
                                 </tr>
                             </table>
