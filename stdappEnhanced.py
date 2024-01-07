@@ -82,7 +82,7 @@ entry_cm_std = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Item Number:")
 entry_ritm = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Type:")
-entry_request_options = ["Propose a new Standard Change", "Modify an existing Standard Change – Update Documentation", "Modify an existing Standard Change – Retire from Catalog", "Modify an existing Standard Change – Change Ownership," "Modify an existing Standard Change – Add/Remove Configuration Items"]
+entry_request_options = ["Propose a new Standard Change", "Modify an existing Standard Change – Update Documentation", "Modify an existing Standard Change – Retire from Catalog", "Modify an existing Standard Change – Change Ownership,","Modify an existing Standard Change – Add/Remove Configuration Items"]
 dropdown_request = create_dropdown(frame_request_info, entry_request_options)
 
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5, 5), height=100)
