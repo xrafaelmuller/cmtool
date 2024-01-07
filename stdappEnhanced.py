@@ -49,9 +49,9 @@ def create_date_entry(parent):
 
 # Main Window
 cmtool_window = tk.Tk()
-cmtool_window.geometry("400x650")
+cmtool_window.geometry("400x700")
 cmtool_window.title("CM Tool")
-cmtool_window.resizable(False, False)
+cmtool_window.resizable(False, True)
 
 
 # Main Label
@@ -81,6 +81,10 @@ create_label(frame_request_info, "Change Coordinator Email:")
 entry_cm_std = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Item Number:")
 entry_ritm = create_box(frame_request_info, width=20)
+create_label(frame_request_info, "Request Type:")
+entry_request_options = ["Propose a new Standard Change", "Modify an existing Standard Change – Update Documentation", "Modify an existing Standard Change – Retire from Catalog", "Modify an existing Standard Change – Change Ownership," "Modify an existing Standard Change – Add/Remove Configuration Items"]
+dropdown_request = create_dropdown(frame_request_info, entry_request_options)
+
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_request_details, "Standard Activity:")
@@ -139,7 +143,7 @@ def send_std_email():
     
     selected_category = dropdown.get()
     selected_date = date_entry.get()
-
+    selected_request_type = dropdown_request.get()
     inputed_configuration_items = config_item.get()
     inputed_hyperlink = entry_activity_hyperlink.get()
     if not inputed_hyperlink:
@@ -155,12 +159,12 @@ def send_std_email():
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
     body_mail = body_mail.replace("XXXHYPERLINKXXX", inputed_hyperlink)
 
-    if inputed_configuration_items is None:
-        body_mail = body_mail.replace('<p style="font-size: 16px; display: none; font-family: \'Arial\'; ">It has been authorized to be used with the following Configuration Items:</p>', '<p style="font-size: 16px; font-family: \'Arial\'; ">It has been authorized to be used with the following Configuration Items:</p>')
-        body_mail = body_mail.replace('<p style="font-size: 16px; display: none; font-family: \'Arial\';"><strong>XXCONFIGITEMSXX</strong></p>', '<p style="font-size: 16px; font-family: \'Arial\';"><strong>XXCONFIGITEMSXX</strong></p>')
-        body_mail = body_mail.replace('XXCONFIGITEMSXX', inputed_configuration_items)
-
-        
+    if selected_request_type == "Propose a new Standard Change":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "New Standard Change")
+    elif selected_request_type == "Modify an existing Standard Change – Update Documentation":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Update the documentation")
+    elif selected_request_type == "Modify an existing Standard Change – Retire from Catalog":
+        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Retire from Catalog")        
 
 
     try:
@@ -200,7 +204,7 @@ def std_creation_html():
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Your request <strong> RITMXXXXXXX </strong> for a new Standard Change, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Your request <strong> RITMXXXXXXX </strong> for XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
                                     <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
                                     <p style="font-size: 16px; font-family: 'Arial', text-allign: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 14px; font-family: 'Arial', text-allign: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
