@@ -30,8 +30,9 @@ def create_label(parent, text):
 
 # Function to create entry fields
 def create_box(parent, width):
-    entry = tk.Entry(parent, font=("Arial", 10), width=width)
-    entry.pack(fill="x", padx=10, pady=(0, 10))
+    entry = tk.Entry(parent, font=("Arial", 10))
+    entry.pack(fill="x", padx=5, pady=(0, 5))
+    entry.configure(width=width)  # Set the width using configure
     return entry
 
 # Function to create a dropdown
@@ -75,21 +76,23 @@ frame_request_info.pack(padx=5, pady=5, fill="both", expand=False)
 
 # Input Fields
 create_label(frame_request_info, "Change Coordinator Email:")
-entry_cm_std = create_box(frame_request_info, width=30)
+entry_cm_std = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Item Number:")
-entry_ritm = create_box(frame_request_info, width=30)
+entry_ritm = create_box(frame_request_info, width=20)
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(10, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_request_details, "Standard Activity:")
-entry_short_description = create_box(frame_request_details, width=5)
+entry_short_description = create_box(frame_request_details, width=20)
 create_label(frame_request_details, "Activity Link")
-entry_activity_hyperlink = create_box(frame_request_details, width=5)
+entry_activity_hyperlink = create_box(frame_request_details, width=20)
+
 create_label(frame_request_details, "Category:")
 entry_category_options = ["Application - Code", "Application - Configuration", "Application & Database - Code",
                            "Application & Database - Configuration", "Database", "Database - Code", "Database - Configuration",
                            "Facilities - Building", "Facilities - Data Center", "Middleware", "Network", "Server", "Security",
                            "Storage", "Voice / Telecom"]
 dropdown = create_dropdown(frame_request_details, entry_category_options)
+
 create_label(frame_request_details, "CAB Approval Date:")
 date_entry = create_date_entry(frame_request_details)
 frame_aditional_info = ttk.LabelFrame(tab1, text="Configuration Items", padding=(10, 5), height=100)
@@ -101,7 +104,7 @@ config_item = create_box(frame_aditional_info, width=5)
 frame_incident_caused = ttk.LabelFrame(tab2, text="Change Activity Details", padding=(10, 5), height=100)
 frame_incident_caused.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_incident_caused, "Change Coordinator Email:")
-entry_cm_inc = create_box(frame_incident_caused, width=30)
+entry_cm_inc = create_box(frame_incident_caused, width=10)
 create_label(frame_incident_caused, "Change Activity:")
 entry_change_activity = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Change Record:")
