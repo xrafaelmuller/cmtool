@@ -239,7 +239,7 @@ def send_incident_email():
     ##Validation code block    
     inc_activity = entry_change_activity.get()
     if not inc_activity:
-        messagebox.showerror("Error", "eld.")
+        messagebox.showerror("Error", "Please fill out the Change Activity Field..")
         return
 
     inc_change_record = entry_change_number.get()
