@@ -143,7 +143,7 @@ def send_std_email():
 
     ## Replacement code block
     username, domain = mail_sender.split("@")
-    c_coordinator = username.split("_")
+    c_coordinator = username.split("_" or ".")
     
     ##Validation code block
     request_item_number = entry_ritm.get()
@@ -241,8 +241,8 @@ def std_creation_html():
                                 </tr>
                                 <tr>
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
-                                    <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
-                                    <p style="font-size: 16px; font-family: 'Arial', text-align: justify;">Your request <strong> RITMXXXXXXX </strong> to XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'">Dear Change_Coordinator,</p>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-align: justify">Your request <strong> RITMXXXXXXX </strong> to XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
                                     <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">Link to <a href="XXXHYPERLINKXXX" style="text-decoration: underline; color: #0076CE; target="_blank"> ServiceNow Standard Change Activity</a></p>
                                     <p style="font-size: 16px; font-family: 'Arial', text-align: justify;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" style="text-decoration: underline; color: #0076CE; target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; font-family: 'Arial', text-align: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
@@ -281,7 +281,7 @@ def send_incident_email():
 
     ## Replacement code block
     username, domain = mail_sender.split("@")
-    c_coordinator = username.split("_")
+    c_coordinator = username.split("_" or ".")
     
     ##Validation code block    
     inc_activity = entry_change_activity.get()
@@ -392,7 +392,7 @@ def send_abadoned_email():
 
     ## Replacement code block
     username, domain = cc_abandoned.split("@")
-    c_coordinator = username.split("_")  
+    c_coordinator = username.split("_" or ".")  
 
     abandoned_change_record = entry_abandoned_change.get()
     if not abandoned_change_record:
