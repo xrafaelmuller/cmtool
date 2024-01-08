@@ -372,7 +372,7 @@ Was your Change a Standard Change? </li>
 
 # Create the "Send" button
 send_button_tab1 = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
-send_button_tab1.pack(side="left", padx=150, pady=10)
+send_button_tab1.pack(padx=150, pady=10)
 
 # Create the "Send" button for second window
 send_button = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
