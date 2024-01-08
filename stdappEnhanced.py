@@ -96,7 +96,7 @@ entry_request_options = ["Propose a new Standard Change", "Modify – Update Doc
                          "Modify – Add Configuration Items", "Modify – Remove Configuration Items"
                          ]
 dropdown_request = create_dropdown(frame_request_info, entry_request_options)
-entry_checkbox, checkbox_var = create_checkbox(frame_request_info, "BCC distro?")
+entry_checkbox, checkbox_var = create_checkbox(frame_request_info, "BCC IT-Change-Managers")
 
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
@@ -130,6 +130,8 @@ create_label(frame_incident_caused, "Change Record:")
 entry_change_number = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Incident(s):")
 entry_incident_number = create_box(frame_incident_caused, width=5)
+entry__inc_checkbox, inc_checkbox_var = create_checkbox(frame_incident_caused, "BCC IT-Change-Managers")
+
 
 ################################################################
 # Create a frame to group related fields for Abandoned Changes Tab
@@ -330,7 +332,12 @@ def send_incident_email():
         email.Subject = subject_mail
         email.HtmlBody = inc_body_mail
         email.To = mail_sender
-        ##email.bcc = "rsyn@live.com"
+        
+        ticked_inc_checkedbox = inc_checkbox_var.get()
+        if ticked_inc_checkedbox == True:
+            email.bcc = "rafael_muller@dell.com"
+        else:
+            email.bcc = ""
 
         email.Send()
         messagebox.showinfo("Success", "Email sent!")
