@@ -63,9 +63,11 @@ tab_control = ttk.Notebook(cmtool_window)
 # Create tabs
 tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
+tab3 = ttk.Frame(tab_control)
 # Add tabs to the Tab Control
-tab_control.add(tab1, text="Standard Change Creation")
-tab_control.add(tab2, text="Incident Caused By Change")
+tab_control.add(tab1, text="Std Creation")
+tab_control.add(tab2, text="INC Caused By Change")
+tab_control.add(tab3, text="Abandoned Changes")
 # Bind the tab change event to a function
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 # Pack the Tab Control
@@ -121,6 +123,15 @@ create_label(frame_incident_caused, "Change Record:")
 entry_change_number = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Incident(s):")
 entry_incident_number = create_box(frame_incident_caused, width=5)
+
+################################################################
+# Create a frame to group related fields for Abandoned Changes Tab
+frame_abandoned_change = ttk.LabelFrame(tab3, text="Change Coordinator Information", padding=(10, 5), height=100)
+frame_abandoned_change.pack(padx=5, pady=5, fill="both", expand=False)
+create_label(frame_abandoned_change, "Change Coordinator Email:")
+entry_abandoned_email = create_box(frame_abandoned_change, width=10)
+create_label(frame_abandoned_change, "Change Record(s):")
+entry_abandoned_change = create_box(frame_abandoned_change, width=5)
 
 
 
@@ -234,7 +245,7 @@ def std_creation_html():
                                     <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Your request <strong> RITMXXXXXXX </strong> to XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
                                     <p style="font-size: 16px; font-family: 'Arial' , text-align: justify; ">Link to <a href="XXXHYPERLINKXXX" style="text-decoration: underline; color: #0076CE; target="_blank"> ServiceNow Standard Change Activity</a></p>
                                     <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" style="text-decoration: underline; color: #0076CE; target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
-                                    <li style="font-size: 14px; font-family: 'Arial', text-align: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
+                                    <li style="font-size: 16px; font-family: 'Arial', text-align: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; font-family: 'Arial', text-align: justify;"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
                                     <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify; "> XXXIFINPUTEDXX </p>
                                     <p style="font-size: 16px; font-family: 'Arial , text-allign: justify;" ><strong> XXCONFIGITEMSXX </strong> </p>
@@ -370,13 +381,116 @@ Was your Change a Standard Change? </li>
     '''    
     return inc_body_mail
 
+
+###ABANDONED CHANGE EMAIL SINTAX ###
+
+def send_abadoned_email():
+    cc_abandoned = entry_abandoned_email.get()
+    if not cc_abandoned:
+        messagebox.showerror("Error", "Please fill out the CC Email Field.")
+        return
+
+    ## Replacement code block
+    username, domain = cc_abandoned.split("@")
+    c_coordinator = username.split("_")  
+
+    abandoned_change_record = entry_abandoned_change.get()
+    if not abandoned_change_record:
+        messagebox.showerror("Error", "Please fill out the Change Number Field.")
+        return
+
+
+    subject_mail = "Action Required: Review Standard Change "f"{abandoned_change_record}" " that caused an Incident"
+    abandoned_body_mail = abandoned_caused_html()
+    abandoned_body_mail = abandoned_body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
+    abandoned_body_mail = abandoned_body_mail.replace("XXXCHANGENUMBERXXX", abandoned_change_record)
+
+
+    try:
+        outlook = win32com.client.Dispatch('Outlook.Application')
+        namespace = outlook.GetNamespace("MAPI")
+        caixa_saida = namespace.GetDefaultFolder(5)  # Output Box
+
+        email = outlook.CreateItem(0)  # 0 is an new email
+        email.Subject = subject_mail
+        email.HtmlBody = abandoned_body_mail
+        email.To = cc_abandoned
+        ##email.bcc = "rsyn@live.com"
+
+        email.Send()
+        messagebox.showinfo("Success", "Email sent!")
+    except Exception as e:
+        messagebox.showerror("Error", f": {str(e)}")
+
+
+def abandoned_caused_html():
+    inc_body_mail = '''<html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>Change Enablement Notification</title>
+                            </head>
+                            <body>
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="900">
+                             <tr>
+                               <td width="600" style="width:382.75pt;background:#0076CE;padding:0cm 5.4pt 0cm 5.4pt;
+                                height:69.55pt">
+                                <p class="MsoNormal"><a name="_MailAutoSig"><span style="font-size:15.0pt;
+                                font-family:&quot;Arial&quot;,sans-serif;color:#F2F2F2;mso-no-proof:yes">Change
+                                Enablement Notification</span><span style="mso-no-proof:yes"><o:p></o:p></span></a></p>
+                             </td>
+                                </tr>
+                                <tr>
+                                <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify; ">Dear Change_Coordinator,</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Your Change record XXXCHANGENUMBERXXX has caused the below Incident:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>Change Short Description:</strong> XXXACTIVITYXXX</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>Incident(s):</strong> XXXINCIDENTXXX</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>What to do Next...</strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> Review the details of the Incident and determine why your Change was identified as the cause.</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If you agree that your Change did cause the Incident, then you will need to update the state of your Change to ‘Closed Incomplete’. </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you do not agree that your Change caused the Incident: </p>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Work with the individual who associated your Change to the Incident for a better understanding and potential removal of the association. You can check in the RFC Notes tab activities on who had associated the INC to the Change. There is a statement with the individual’s name as illustrated below: 
+                  <Individual Name>
+                      incident INCxxxxxxxx has been added from the 'incidents caused by change' related list </li>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If there is a consensus that the Change did not cause any Incident, the individual who associated the Incident to the Change should remove the association </li>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If the ‘Caused by Change’ field in the Incident is locked (greyed out), then you can reach out to the Change Manager assigned to your Change for assistance </li>
+                                    <li style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If you are successful in removing the association of the Incident to your Change, the Change may be closed as ‘Closed Complete’
+Was your Change a Standard Change? </li>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong> Was your Change a Standard Change? </strong></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Your Standard Change will immediately be deactivated from the Service Catalog (“Revoked”). </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you were successful in removing the association of your Change to the Incident (as noted above), your Standard Change may be reactivated upon providing that evidence the Change Enablement team.</p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you were not successful in removing the association of your Change to the Incident and you wish to have the Standard Change reactivated, you must follow the instructions provided in the following KB article:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> KB1068741 <a href="https://dell.service-now.com/sp?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448"target="_blank">“Standard Change Activity Maintenance and New Proposals”. </a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If approved by CAB, your Standard Change will be reactivated and once again be visible in the Service Catalog.</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> Until reactivated, you will now need to follow the Normal Change process for these Change activities.</p>
+                                    <p class="MsoNormal" style="line-height:115%; vertical-align:baseline"><img width="1018" height="5" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABPgAAAAGCAYAAABekCDgAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAAADsSURBVHja7dshbgJBGIbhlUiOgET2CEgkx6hEIrsnQJK1m9nfViI5BrLHqCyDR8DPBhp4xHOByWQg3+ZtIuJjGIavsZRSPvu+X5DTtm0DAAAAANdqzqPSmANftYuIAzn1/P5IO7pD6Xv3PfI78FbqO7r0gSKn3r+ZH2MAAIA7Bz6HwKuIiLnBJD2yrAx1efX89obi9Lj84+NE2q87dJet90utodYAAAx8AMDTdF03MZbklVLWxjq1hlpDraHWQK2h1gADHwAAwIOoNdQaag21hloDtcbFumJz/vjvzwIAAADAP6LWUGvcot6X6QlO/KTHKoX8lwAAAABJRU5ErkJggg=="><span style="font-family:&quot;Arial&quot;,sans-serif"></span></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> For any question, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify; text-decoration: underline; color: #C00000; font-weight: bold;">Helpful Resources:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">All things Change Enablement: <a href="https://dell.sharepoint.com/sites/Operations-SPO/Change_Management/SitePages/Welcome-to-Dell-Technologies-Change-Enablement.aspx" style="text-decoration: underline; color: #0076CE;">Resource Hub</a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Fastest way to get a response: <a href="https://dell.sharepoint.com/sites/Operations-SPO/Change_Management/SitePages/MIMsy.aspx"style="text-decoration: underline; color: #0076CE;"> MIMsy </a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Easiest way to create a Change: <a href="https://dell.service-now.com/kb_view.do?sys_kb_id=09aef4388773195024cfcb3c8bbb35a0&sysparm_language=&sysparm_nameofstack=&sysparm_kb_search_table=&sysparm_search=" style="text-decoration: underline; color: #0076CE;"> Change Requests Template </p>
+                                    <p class="MsoNormal" style="line-height:115%; vertical-align:baseline"><img width="1018" height="5" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABPgAAAAGCAYAAABekCDgAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAAADsSURBVHja7dshbgJBGIbhlUiOgET2CEgkx6hEIrsnQJK1m9nfViI5BrLHqCyDR8DPBhp4xHOByWQg3+ZtIuJjGIavsZRSPvu+X5DTtm0DAAAAANdqzqPSmANftYuIAzn1/P5IO7pD6Xv3PfI78FbqO7r0gSKn3r+ZH2MAAIA7Bz6HwKuIiLnBJD2yrAx1efX89obi9Lj84+NE2q87dJet90utodYAAAx8AMDTdF03MZbklVLWxjq1hlpDraHWQK2h1gADHwAAwIOoNdQaag21hloDtcbFumJz/vjvzwIAAADAP6LWUGvcot6X6QlO/KTHKoX8lwAAAABJRU5ErkJggg=="><span style="font-family:&quot;Arial&quot;,sans-serif"></span></p>
+                                </tr>
+                            </table>
+                            </body>
+                            </html>
+    '''    
+    return inc_body_mail
+
+
+
 # Create the "Send" button
 send_button_tab1 = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
 send_button_tab1.pack(padx=150, pady=10)
 
 # Create the "Send" button for second window
-send_button = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
-send_button.pack(pady=10)
+send_button_tab2 = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
+send_button_tab2.pack(pady=10)
+
+# Create the "Send" button for second window
+send_button_tab3 = tk.Button(tab3, text="Send", command=send_abadoned_email, font=("Arial", 12))
+send_button_tab3.pack(pady=10)
 
 # Start the main loop
 cmtool_window.mainloop()
