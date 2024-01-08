@@ -227,16 +227,25 @@ def std_creation_html():
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial';">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Your request <strong> RITMXXXXXXX </strong> to XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
-                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify; ">Link to <a href="XXXHYPERLINKXXX" target="_blank"> ServiceNow Standard Change Activity</a></p>
-                                    <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify; ">Link to <a href="XXXHYPERLINKXXX" style="text-decoration: underline; color: #0076CE; target="_blank"> ServiceNow Standard Change Activity</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial', text-align: justify; ">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" style="text-decoration: underline; color: #0076CE; target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 14px; font-family: 'Arial', text-align: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; font-family: 'Arial', text-align: justify;"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
                                     <p style="font-size: 16px; font-family: 'Arial' , text-allign: justify; "> XXXIFINPUTEDXX </p>
                                     <p style="font-size: 16px; font-family: 'Arial , text-allign: justify;" ><strong> XXCONFIGITEMSXX </strong> </p>
-                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">For any questions, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>                                  
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">    For any questions, please contact     <a href="mailto:IT-Change-Managers@dell.com" style="text-decoration: underline; color: #0076CE;">IT-Change-Managers@dell.com</a> </p>
+                                  
                                     <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">Note: As the owner, you are accountable for the proper usage of this Standard Change activity. Please monitor this activity frequently for the following: </p>
                                     <li style="font-size: 16px; font-family: 'Arial' , text-align: justify;"> Who is using this Standard Change activity </li>
                                     <li style="font-size: 16px; font-family: 'Arial' , text-align: justify;"> Did they use it for its intended purpose (strictly adhered to the implementation steps associated with this Standard Change)</li>
+                                    <p class="MsoNormal" style="line-height:115%; vertical-align:baseline"><img width="1018" height="5" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABPgAAAAGCAYAAABekCDgAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAAADsSURBVHja7dshbgJBGIbhlUiOgET2CEgkx6hEIrsnQJK1m9nfViI5BrLHqCyDR8DPBhp4xHOByWQg3+ZtIuJjGIavsZRSPvu+X5DTtm0DAAAAANdqzqPSmANftYuIAzn1/P5IO7pD6Xv3PfI78FbqO7r0gSKn3r+ZH2MAAIA7Bz6HwKuIiLnBJD2yrAx1efX89obi9Lj84+NE2q87dJet90utodYAAAx8AMDTdF03MZbklVLWxjq1hlpDraHWQK2h1gADHwAAwIOoNdQaag21hloDtcbFumJz/vjvzwIAAADAP6LWUGvcot6X6QlO/KTHKoX8lwAAAABJRU5ErkJggg=="><span style="font-family:&quot;Arial&quot;,sans-serif"></span></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">     For any questions, please contact     <a href="mailto:IT-Change-Managers@dell.com" style="text-decoration: underline; color: #0076CE;">IT-Change-Managers@dell.com</a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify; text-decoration: underline; color: #C00000; font-weight: bold;">Helpful Resources:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">All things Change Enablement: <a href="https://dell.sharepoint.com/sites/Operations-SPO/Change_Management/SitePages/Welcome-to-Dell-Technologies-Change-Enablement.aspx" style="text-decoration: underline; color: #0076CE;">Resource Hub</a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Fastest way to get a response: <a href="https://dell.sharepoint.com/sites/Operations-SPO/Change_Management/SitePages/MIMsy.aspx"style="text-decoration: underline; color: #0076CE;"> MIMsy </a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Easiest way to create a Change: <a href="https://dell.service-now.com/kb_view.do?sys_kb_id=09aef4388773195024cfcb3c8bbb35a0&sysparm_language=&sysparm_nameofstack=&sysparm_kb_search_table=&sysparm_search=" style="text-decoration: underline; color: #0076CE;"> Change Requests Template </p>
+                                    <p class="MsoNormal" style="line-height:115%; vertical-align:baseline"><img width="1018" height="5" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABPgAAAAGCAYAAABekCDgAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAAADsSURBVHja7dshbgJBGIbhlUiOgET2CEgkx6hEIrsnQJK1m9nfViI5BrLHqCyDR8DPBhp4xHOByWQg3+ZtIuJjGIavsZRSPvu+X5DTtm0DAAAAANdqzqPSmANftYuIAzn1/P5IO7pD6Xv3PfI78FbqO7r0gSKn3r+ZH2MAAIA7Bz6HwKuIiLnBJD2yrAx1efX89obi9Lj84+NE2q87dJet90utodYAAAx8AMDTdF03MZbklVLWxjq1hlpDraHWQK2h1gADHwAAwIOoNdQaag21hloDtcbFumJz/vjvzwIAAADAP6LWUGvcot6X6QlO/KTHKoX8lwAAAABJRU5ErkJggg=="><span style="font-family:&quot;Arial&quot;,sans-serif"></span></p>
                                 </td>
                                 </tr>
                             </table>
@@ -321,8 +330,8 @@ def inc_caused_html():
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify; ">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Your Change record XXXCHANGENUMBERXXX has caused the below Incident:</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Change Short Description: XXXACTIVITYXXX</a></p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Incident(s): XXXINCIDENTXXX</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>Change Short Description:</strong> XXXACTIVITYXXX</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>Incident(s):</strong> XXXINCIDENTXXX</p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"><strong>What to do Next...</strong></p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> Review the details of the Incident and determine why your Change was identified as the cause.</p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If you agree that your Change did cause the Incident, then you will need to update the state of your Change to ‘Closed Incomplete’. </p>
@@ -338,10 +347,17 @@ Was your Change a Standard Change? </li>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Your Standard Change will immediately be deactivated from the Service Catalog (“Revoked”). </p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you were successful in removing the association of your Change to the Incident (as noted above), your Standard Change may be reactivated upon providing that evidence the Change Enablement team.</p>                                  
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">If you were not successful in removing the association of your Change to the Incident and you wish to have the Standard Change reactivated, you must follow the instructions provided in the following KB article:</p>
-                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> KB1068741 <a href=     target="_blank">“Standard Change Activity Maintenance and New Proposals”. </a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> KB1068741 <a href="https://dell.service-now.com/sp?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448"target="_blank">“Standard Change Activity Maintenance and New Proposals”. </a> </p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> If approved by CAB, your Standard Change will be reactivated and once again be visible in the Service Catalog.</p>
                                     <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> Until reactivated, you will now need to follow the Normal Change process for these Change activities.</p>
-                                </td>
+                                    <p class="MsoNormal" style="line-height:115%; vertical-align:baseline"><img width="1018" height="5" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABPgAAAAGCAYAAABekCDgAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAAADsSURBVHja7dshbgJBGIbhlUiOgET2CEgkx6hEIrsnQJK1m9nfViI5BrLHqCyDR8DPBhp4xHOByWQg3+ZtIuJjGIavsZRSPvu+X5DTtm0DAAAAANdqzqPSmANftYuIAzn1/P5IO7pD6Xv3PfI78FbqO7r0gSKn3r+ZH2MAAIA7Bz6HwKuIiLnBJD2yrAx1efX89obi9Lj84+NE2q87dJet90utodYAAAx8AMDTdF03MZbklVLWxjq1hlpDraHWQK2h1gADHwAAwIOoNdQaag21hloDtcbFumJz/vjvzwIAAADAP6LWUGvcot6X6QlO/KTHKoX8lwAAAABJRU5ErkJggg=="><span style="font-family:&quot;Arial&quot;,sans-serif"></span></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> For any question, please contact <a href="mailto:IT-Change-Managers@dell.com">IT-Change-Managers@dell.com</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;"> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify; text-decoration: underline; color: #C00000; font-weight: bold;">Helpful Resources:</p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">All things Change Enablement: <a href="https://dell.sharepoint.com/sites/Operations-SPO/Change_Management/SitePages/Welcome-to-Dell-Technologies-Change-Enablement.aspx" style="text-decoration: underline; color: #0076CE;">Resource Hub</a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Fastest way to get a response: <a href="https://dell.sharepoint.com/sites/Operations-SPO/Change_Management/SitePages/MIMsy.aspx"style="text-decoration: underline; color: #0076CE;"> MIMsy </a> </p>
+                                    <p style="font-size: 16px; font-family: 'Arial'; text-align: justify;">Easiest way to create a Change: <a href="https://dell.service-now.com/kb_view.do?sys_kb_id=09aef4388773195024cfcb3c8bbb35a0&sysparm_language=&sysparm_nameofstack=&sysparm_kb_search_table=&sysparm_search=" style="text-decoration: underline; color: #0076CE;"> Change Requests Template </p>
+                                    <p class="MsoNormal" style="line-height:115%; vertical-align:baseline"><img width="1018" height="5" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABPgAAAAGCAYAAABekCDgAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAASdAAAEnQB3mYfeAAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAAADsSURBVHja7dshbgJBGIbhlUiOgET2CEgkx6hEIrsnQJK1m9nfViI5BrLHqCyDR8DPBhp4xHOByWQg3+ZtIuJjGIavsZRSPvu+X5DTtm0DAAAAANdqzqPSmANftYuIAzn1/P5IO7pD6Xv3PfI78FbqO7r0gSKn3r+ZH2MAAIA7Bz6HwKuIiLnBJD2yrAx1efX89obi9Lj84+NE2q87dJet90utodYAAAx8AMDTdF03MZbklVLWxjq1hlpDraHWQK2h1gADHwAAwIOoNdQaag21hloDtcbFumJz/vjvzwIAAADAP6LWUGvcot6X6QlO/KTHKoX8lwAAAABJRU5ErkJggg=="><span style="font-family:&quot;Arial&quot;,sans-serif"></span></p>
                                 </tr>
                             </table>
                             </body>
@@ -349,14 +365,9 @@ Was your Change a Standard Change? </li>
     '''    
     return inc_body_mail
 
-
-
-
-
-
-# Create the "Send" button for first window
-send_button = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
-send_button.pack(pady=10)
+# Create the "Send" button
+send_button_tab1 = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
+send_button_tab1.pack(side="left", padx=150, pady=10)
 
 # Create the "Send" button for second window
 send_button = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
