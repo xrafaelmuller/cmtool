@@ -47,9 +47,15 @@ def create_date_entry(parent):
     date_entry.pack(fill="x", padx=10, pady=(5, 10))
     return date_entry
 
+def create_checkbox(parent, text):
+    checkbox_var = tk.BooleanVar()
+    checkbox = tk.Checkbutton(parent, text=text, font=("Arial", 10), variable=checkbox_var, anchor="w")
+    checkbox.pack(fill="x", padx=10, pady=(5, 0))
+    return checkbox, checkbox_var
+
 # Main Window
 cmtool_window = tk.Tk()
-cmtool_window.geometry("400x700")
+cmtool_window.geometry("400x750")
 cmtool_window.title("CM Tool")
 cmtool_window.resizable(False, True)
 
@@ -90,6 +96,7 @@ entry_request_options = ["Propose a new Standard Change", "Modify – Update Doc
                          "Modify – Add Configuration Items", "Modify – Remove Configuration Items"
                          ]
 dropdown_request = create_dropdown(frame_request_info, entry_request_options)
+entry_checkbox, checkbox_var = create_checkbox(frame_request_info, "BCC distro?")
 
 frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5, 5), height=100)
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
@@ -214,7 +221,12 @@ def send_std_email():
         email.Subject = subject_mail
         email.HtmlBody = body_mail
         email.To = mail_sender
-        ##email.bcc = "rsyn@live.com"
+
+        ticked_checkedbox = checkbox_var.get()
+        if ticked_checkedbox == True:
+            email.bcc = "rafael_muller@dell.com"
+        else:
+            email.bcc = ""
 
         email.Send()
         messagebox.showinfo("Success", "Email sent!")
