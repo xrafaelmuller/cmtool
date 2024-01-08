@@ -138,7 +138,7 @@ entry_abandoned_change = create_box(frame_abandoned_change, width=5)
 def send_std_email():
     mail_sender = entry_cm_std.get()
     if not mail_sender:
-        messagebox.showerror("Error", "Please fill out the CM Email Field.")
+        messagebox.showerror("Error", "Please fill out the CC Email Field.")
         return
 
     ## Replacement code block
@@ -276,7 +276,7 @@ def std_creation_html():
 def send_incident_email():
     mail_sender = entry_cm_inc.get()
     if not mail_sender:
-        messagebox.showerror("Error", "Please fill out the CM Email Field.")
+        messagebox.showerror("Error", "Please fill out the CC Email Field.")
         return
 
     ## Replacement code block
