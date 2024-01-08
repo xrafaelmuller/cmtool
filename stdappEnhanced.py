@@ -145,11 +145,16 @@ def send_std_email():
         messagebox.showerror("Error", "Please fill out the Short Description Field.")
         return
     
+    inputed_hyperlink = entry_activity_hyperlink.get()
+    if not inputed_hyperlink.startswith("http://") and not inputed_hyperlink.startswith("https://"):
+        messagebox.showerror("Error", "Please copy the URL from the Standard Change Activity")
+        return
+
+    
     selected_category = dropdown.get()
     selected_date = date_entry.get()
     selected_request_type = dropdown_request.get()
     inputed_configuration_items = config_item.get()
-    inputed_hyperlink = entry_activity_hyperlink.get()
     if not inputed_hyperlink:
         messagebox.showerror("Error", "Please fill out the Activity Link Field.")
         return
