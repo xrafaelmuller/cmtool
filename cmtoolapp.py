@@ -255,7 +255,7 @@ def send_std_email():
 
         ticked_checkedbox = checkbox_var.get()
         if ticked_checkedbox == True:
-            email.bcc = "rafael_muller@dell.com"
+            email.bcc = "IT-Change-Managers@Dell.com"
         else:
             email.bcc = ""
 
@@ -364,7 +364,7 @@ def send_incident_email():
         
         ticked_inc_checkedbox = inc_checkbox_var.get()
         if ticked_inc_checkedbox == True:
-            email.bcc = "rafael_muller@dell.com"
+            email.bcc = "IT-Change-Managers@Dell.com"
         else:
             email.bcc = ""
 
