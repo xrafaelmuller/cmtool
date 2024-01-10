@@ -18,9 +18,28 @@ def add_copied_text():
     win32.CloseClipboard()
 
     entry_cm_std.delete(0, tk.END)
-    entry_cm_inc.delete(0, tk.END)
+    entry_inc_cc.delete(0, tk.END)
     entry_cm_std.insert(tk.END, clipboard_data)
-    entry_cm_inc.insert(tk.END, clipboard_data)
+    entry_inc_cc.insert(tk.END, clipboard_data)
+
+def clear_abandoned():
+    entry_inc_cc.delete(0, tk.END)
+    entry_abandoned_change.delete(0, tk.END)
+
+def clear_inc():
+    entry_incident_number.delete(0, tk.END)
+    entry_inc_cc.delete(0, tk.END)
+    entry_inc_change_activity.delete(0, tk.END)
+    entry_incident_number.delete(0, tk.END)
+
+def clear_std():
+    entry_cm_std.delete(0, tk.END)
+    entry_ritm.delete(0, tk.END)
+    entry_activity_hyperlink.delete(0, tk.END)
+    entry_short_description.delete(0, tk.END)
+    config_item.delete(0, tk.END)
+
+
 
 # Function to create labels
 def create_label(parent, text):
@@ -123,14 +142,14 @@ config_item = create_box(frame_aditional_info, width=5)
 frame_incident_caused = ttk.LabelFrame(tab2, text="Change Activity Details", padding=(10, 5), height=100)
 frame_incident_caused.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_incident_caused, "Change Coordinator Email:")
-entry_cm_inc = create_box(frame_incident_caused, width=10)
+entry_inc_cc = create_box(frame_incident_caused, width=10)
 create_label(frame_incident_caused, "Change Activity:")
-entry_change_activity = create_box(frame_incident_caused, width=5)
+entry_inc_change_activity = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Change Record:")
-entry_change_number = create_box(frame_incident_caused, width=5)
+entry_inc_change_number = create_box(frame_incident_caused, width=5)
 create_label(frame_incident_caused, "Incident(s):")
 entry_incident_number = create_box(frame_incident_caused, width=5)
-entry__inc_checkbox, inc_checkbox_var = create_checkbox(frame_incident_caused, "BCC IT-Change-Managers")
+entry_inc_checkbox, inc_checkbox_var = create_checkbox(frame_incident_caused, "BCC IT-Change-Managers")
 
 
 ################################################################
@@ -141,6 +160,16 @@ create_label(frame_abandoned_change, "Change Coordinator Email:")
 entry_abandoned_email = create_box(frame_abandoned_change, width=10)
 create_label(frame_abandoned_change, "Change Record(s):")
 entry_abandoned_change = create_box(frame_abandoned_change, width=5)
+
+frame_button_tab1 = ttk.LabelFrame(tab1, padding=(2, 2), height=1, borderwidth=1)
+frame_button_tab1.pack(side="top", padx=2, pady=2, fill="both", expand=False)
+
+frame_button_tab2 = ttk.LabelFrame(tab2, padding=(2, 2), height=1, borderwidth=1)
+frame_button_tab2.pack(side="top", padx=2, pady=2, fill="both", expand=False)
+
+frame_button_tab3 = ttk.LabelFrame(tab3, padding=(2, 2), height=1, borderwidth=1)
+frame_button_tab3.pack(side="top", padx=2, pady=2, fill="both", expand=False)
+
 
 
 
@@ -288,7 +317,7 @@ def std_creation_html():
 
 ###INCIDENT CAUSED BY CHANGE EMAIL SINTAX ###
 def send_incident_email():
-    mail_sender = entry_cm_inc.get()
+    mail_sender = entry_inc_cc.get()
     if not mail_sender:
         messagebox.showerror("Error", "Please fill out the CC Email Field.")
         return
@@ -298,12 +327,12 @@ def send_incident_email():
     c_coordinator = username.split("_" or ".")
     
     ##Validation code block    
-    inc_activity = entry_change_activity.get()
+    inc_activity = entry_inc_change_activity.get()
     if not inc_activity:
         messagebox.showerror("Error", "Please fill out the Change Activity Field..")
         return
 
-    inc_change_record = entry_change_number.get()
+    inc_change_record = entry_inc_change_number.get()
     if not inc_change_record:
         messagebox.showerror("Error", "Please fill out the Change Number Field.")
         return
@@ -403,7 +432,7 @@ Was your Change a Standard Change? </li>
 
 ###ABANDONED CHANGE EMAIL SINTAX ###
 
-def send_abadoned_email():
+def send_abandoned_email():
     cc_abandoned = entry_abandoned_email.get()
     if not cc_abandoned:
         messagebox.showerror("Error", "Please fill out the CC Email Field.")
@@ -482,16 +511,27 @@ def abandoned_caused_html():
 
 
 # Create the "Send" button
-send_button_tab1 = tk.Button(tab1, text="Send", command=send_std_email, font=("Arial", 12))
-send_button_tab1.pack(padx=150, pady=10)
+send_button_tab1 = tk.Button(frame_button_tab1, text="Send", command=send_std_email, font=("Arial", 12))
+send_button_tab1.pack(side="left" ,padx=10, pady=5)
+
+clear_button_tab1 = tk.Button(frame_button_tab1, text="Clear", command=clear_std, font=("Arial", 12))
+clear_button_tab1.pack(side="left", padx=5, pady=5)
 
 # Create the "Send" button for second window
-send_button_tab2 = tk.Button(tab2, text="Send", command=send_incident_email, font=("Arial", 12))
-send_button_tab2.pack(pady=10)
+send_button_tab2 = tk.Button(frame_button_tab2, text="Send", command=send_incident_email, font=("Arial", 12))
+send_button_tab2.pack(side="left" ,padx=10, pady=5)
+
+clear_button_tab2 = tk.Button(frame_button_tab2, text="Clear", command=clear_inc, font=("Arial", 12))
+clear_button_tab2.pack(side="left", padx=5, pady=5)
+
 
 # Create the "Send" button for second window
-send_button_tab3 = tk.Button(tab3, text="Send", command=send_abadoned_email, font=("Arial", 12))
-send_button_tab3.pack(pady=10)
+send_button_tab3 = tk.Button(frame_button_tab3, text="Send", command=send_abandoned_email, font=("Arial", 12))
+send_button_tab3.pack(side="left" ,padx=10, pady=5)
+
+clear_button_tab3 = tk.Button(frame_button_tab3, text="Clear", command=clear_abandoned, font=("Arial", 12))
+clear_button_tab3.pack(side="left", padx=5, pady=5)
+
 
 # Start the main loop
 cmtool_window.mainloop()
