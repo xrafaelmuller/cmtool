@@ -1,6 +1,7 @@
 # Start the Tkinter event loop
 import tkinter as tk
 import win32
+from babel import dates, core, localedata
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
 from tkinter import messagebox
