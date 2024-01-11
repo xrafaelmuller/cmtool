@@ -35,7 +35,6 @@ def clear_inc():
 def clear_std():
     entry_cm_std.delete(0, tk.END)
     entry_ritm.delete(0, tk.END)
-    entry_activity_hyperlink.delete(0, tk.END)
     entry_short_description.delete(0, tk.END)
     config_item.delete(0, tk.END)
 
@@ -121,8 +120,6 @@ frame_request_details = ttk.LabelFrame(tab1, text="Request Details", padding=(5,
 frame_request_details.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_request_details, "Standard Activity:")
 entry_short_description = create_box(frame_request_details, width=20)
-create_label(frame_request_details, "Activity Link")
-entry_activity_hyperlink = create_box(frame_request_details, width=20)
 
 create_label(frame_request_details, "Category:")
 entry_category_options = ["Application - Code", "Application - Configuration", "Application & Database - Code",
@@ -193,20 +190,12 @@ def send_std_email():
     if not inputed_activity:
         messagebox.showerror("Error", "Please fill out the Short Description Field.")
         return
-    
-    inputed_hyperlink = entry_activity_hyperlink.get()
-    if not inputed_hyperlink.startswith("http://") and not inputed_hyperlink.startswith("https://"):
-        messagebox.showerror("Error", "Please copy the URL from the Standard Change Activity")
-        return
 
     
     selected_category = dropdown.get()
     selected_date = date_entry.get()
     selected_request_type = dropdown_request.get()
     inputed_configuration_items = config_item.get()
-    if not inputed_hyperlink:
-        messagebox.showerror("Error", "Please fill out the Activity Link Field.")
-        return
 
     subject_mail = f"{request_item_number} - "f"{inputed_activity}"
     body_mail = std_creation_html()
@@ -215,7 +204,6 @@ def send_std_email():
     body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
     body_mail = body_mail.replace("XXXACTIVITYXXX", inputed_activity)
     body_mail = body_mail.replace("XXXDATEXXX", selected_date)
-    body_mail = body_mail.replace("XXXHYPERLINKXXX", inputed_hyperlink)
     body_mail = body_mail.replace("XXCONFIGITEMSXX", inputed_configuration_items)
     
     ### Condition if there is no CI's
@@ -286,7 +274,7 @@ def std_creation_html():
                                 <td bgcolor="#ffffff" style="padding: 50px 30px 40px 30px;">
                                     <p style="font-size: 16px; font-family: 'Arial'">Dear Change_Coordinator,</p>
                                     <p style="font-size: 16px; font-family: 'Arial', text-align: justify">Your request <strong> RITMXXXXXXX </strong> to XXXREQUEST_TYPEXXX, <strong> XXXACTIVITYXXX </strong> was approved by CAB as a Standard Change on <strong> XXXDATEXXX </strong></p>
-                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">Link to <a href="XXXHYPERLINKXXX" style="text-decoration: underline; color: #0076CE; target="_blank"> ServiceNow Standard Change Activity</a></p>
+                                    <p style="font-size: 16px; font-family: 'Arial' , text-align: justify;">You can find all your active Standard Changes Activities by using this <a href="https://dell.service-now.com/nav_to.do?uri=%2F$pa_dashboard.do%3Fsysparm_dashboard%3D1db810e41bd77910df00fc03cd4bcba3' style="text-decoration: underline; color: #0076CE; target="_blank"> Dashboard</a></p>
                                     <p style="font-size: 16px; font-family: 'Arial', text-align: justify;">Please refer to <a href="https://dell.service-now.com/esc?id=kb_article&table=kb_knowledge&sys_kb_id=KB0912448" style="text-decoration: underline; color: #0076CE; target="_blank">KB0912448: How To: Submit a Standard Change / Standard Change Job Aid</a> for information on how to use your new Standard Change. Use the below information to locate your Standard Change in the Catalog</p>
                                     <li style="font-size: 16px; font-family: 'Arial', text-align: justify; color: #666666;"><strong>Standard Change Type:</strong> XXSTDTYPEXX</li>
                                     <li style="font-size: 16px; font-family: 'Arial', text-align: justify;"><strong>Change Activity: </strong> XXXACTIVITYXXX</li>
