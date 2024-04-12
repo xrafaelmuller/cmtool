@@ -1,11 +1,10 @@
 # Start the Tkinter event loop
 import tkinter as tk
 import win32
-from babel import dates, core, localedata
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
 from tkinter import messagebox
-import win32com.client  # Import win32com.client for Outloo
+import win32com.client  # Import win32com.client for Outlook
 
 def on_tab_change(event):
     selected_tab = tab_control.index(tab_control.select())
