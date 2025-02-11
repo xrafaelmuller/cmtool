@@ -1,5 +1,6 @@
 # Start the Tkinter event loop
 import tkinter as tk
+import re
 import win32
 from tkinter import ttk, scrolledtext
 from tkcalendar import DateEntry
@@ -8,7 +9,6 @@ import win32com.client  # Import win32com.client for Outlook
 
 def on_tab_change(event):
     selected_tab = tab_control.index(tab_control.select())
-    
 
 # Clipboard enablement
 def add_copied_text():
@@ -73,7 +73,7 @@ def create_checkbox(parent, text):
 # Main Window
 cmtool_window = tk.Tk()
 cmtool_window.geometry("400x750")
-cmtool_window.title("CM Tool")
+cmtool_window.title("CMTool App")
 cmtool_window.resizable(False, True)
 
 
@@ -88,7 +88,7 @@ tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
 tab3 = ttk.Frame(tab_control)
 # Add tabs to the Tab Control
-tab_control.add(tab1, text="Std Creation")
+tab_control.add(tab1, text="Activity Creation")
 tab_control.add(tab2, text="INC Caused By Change")
 tab_control.add(tab3, text="Abandoned Changes")
 # Bind the tab change event to a function
@@ -107,7 +107,7 @@ entry_cm_std = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Item Number:")
 entry_ritm = create_box(frame_request_info, width=20)
 create_label(frame_request_info, "Request Type:")
-entry_request_options = ["Propose a new Standard Change", "Modify – Update Documentation",
+entry_request_options = ["Create - Propose a new Standard Change", "Modify – Update Documentation",
                          "Modify – Additional Scope", "Modify – Update Short Description",
                          "Modify – Retire from Catalog", "Modify – Change Ownership",
                          "Modify – Add Configuration Items", "Modify – Remove Configuration Items"
@@ -170,86 +170,75 @@ frame_button_tab3.pack(side="top", padx=2, pady=2, fill="both", expand=False)
 
 
 def send_std_email():
+    # Helper function to display error messages
+    def show_error(field_name):
+        messagebox.showerror("Error", f"Please fill out the {field_name} Field.")
+        return False
+
+    # Retrieve and validate required fields
     mail_sender = entry_cm_std.get()
-    if not mail_sender:
-        messagebox.showerror("Error", "Please fill out the CC Email Field.")
+    if not mail_sender and not show_error("CC Email"):
         return
 
-    ## Replacement code block
-    username, domain = mail_sender.split("@")
-    c_coordinator = username.split("_" or ".")
-    
-    ##Validation code block
     request_item_number = entry_ritm.get()
-    if not request_item_number:
-        messagebox.showerror("Error", "Please fill out the Request Item Field.")
-        return
-    
-    inputed_activity = entry_short_description.get()
-    if not inputed_activity:
-        messagebox.showerror("Error", "Please fill out the Short Description Field.")
+    if not request_item_number and not show_error("Request Item"):
         return
 
-    
+    inputed_activity = entry_short_description.get()
+    if not inputed_activity and not show_error("Short Description"):
+        return
+
+    # Extract change coordinator from email
+    username = mail_sender.split("@")[0]
+    c_coordinator = [name.capitalize() for name in re.split(r'[_\.]', username)]
+
+    # Gather other inputs
     selected_category = dropdown.get()
     selected_date = date_entry.get()
     selected_request_type = dropdown_request.get()
     inputed_configuration_items = config_item.get()
 
-    subject_mail = f"{request_item_number} - "f"{inputed_activity}"
-    body_mail = std_creation_html()
-    body_mail = body_mail.replace("RITMXXXXXXX", request_item_number)
-    body_mail = body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
-    body_mail = body_mail.replace("XXSTDTYPEXX",  selected_category)
-    body_mail = body_mail.replace("XXXACTIVITYXXX", inputed_activity)
-    body_mail = body_mail.replace("XXXDATEXXX", selected_date)
-    body_mail = body_mail.replace("XXCONFIGITEMSXX", inputed_configuration_items)
-    
-    ### Condition if there is no CI's
-    if inputed_configuration_items == "":
-        body_mail = body_mail.replace("XXXIFINPUTEDXX", "")
-    else:
-        body_mail = body_mail.replace("XXXIFINPUTEDXX","It has been authorized to be used with the following Configuration Items:")
+    # Construct email subject and body
+    subject_mail = f"{request_item_number} - {inputed_activity}"
+    body_mail = std_creation_html().format(
+        RITMXXXXXXX=request_item_number,
+        Change_Coordinator=" ".join(c_coordinator),
+        XXSTDTYPEXX=selected_category,
+        XXXACTIVITYXXX=inputed_activity,
+        XXXDATEXXX=selected_date,
+        XXCONFIGITEMSXX=inputed_configuration_items,
+        XXXIFINPUTEDXX="It has been authorized to be used with the following Configuration Items:" 
+                        if inputed_configuration_items else ""
+    )
 
+    # Map request types to their descriptions
+    request_type_mapping = {
+        "Create  Propose a new Standard Change": "New Standard Change",
+        "Modify – Update Documentation": "Update documentation for your Standard Change Activity",
+        "Modify – Additional Scope": "Include the additional scope for your Standard Change Activity",
+        "Modify – Update Short Description": "Update the Short description for your Standard Change Activity",
+        "Modify – Change Ownership": "Change the ownership of your Standard Change Activity",
+        "Modify – Retire from Catalog": "Retire from Catalog your Standard Change Activity",
+        "Modify – Add Configuration Items": "Include the additional CIs for your Standard Change Activity",
+        "Modify – Remove Configuration Items": "Exclude the additional CIs from your Standard Change Activity"
+    }
 
-    if selected_request_type == "Propose a new Standard Change":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "New Standard Change")
-    elif selected_request_type == "Modify – Update Documentation":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Update documentation for your Standard Change Activity")
-    elif selected_request_type == "Modify – Additional Scope":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "include the additional scope for your Standard Change Activity")
-    elif selected_request_type == "Modify – Update Short Description":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "update the Short description for your Standard Change Activity")
-    elif selected_request_type == "Modify – Change Ownership":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Change the ownership of your Standard Change Activity") 
-    elif selected_request_type == "Modify – Retire from Catalog":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "Retire from Catalog your Standard Change Activity")        
-    elif selected_request_type == "Modify – Add Configuration Items":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "include the additional CIs for your Standard Change Activity")
-    elif selected_request_type == "Modify – Remove Configuration Items":
-        body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", "exclude the additional CIs from your Standard Change Activity")
+    body_mail = body_mail.replace("XXXREQUEST_TYPEXXX", request_type_mapping.get(selected_request_type, ""))
 
-
+    # Send email via Outlook
     try:
         outlook = win32com.client.Dispatch('Outlook.Application')
-        namespace = outlook.GetNamespace("MAPI")
-        caixa_saida = namespace.GetDefaultFolder(5)  # Output Box
-
-        email = outlook.CreateItem(0)  # 0 is an new email
+        email = outlook.CreateItem(0)
         email.Subject = subject_mail
         email.HtmlBody = body_mail
         email.To = mail_sender
-
-        ticked_checkedbox = checkbox_var.get()
-        if ticked_checkedbox == True:
-            email.bcc = "IT-Change-Managers@Dell.com"
-        else:
-            email.bcc = ""
+        email.BCC = "IT-Change-Managers@Dell.com" if checkbox_var.get() else ""
 
         email.Send()
         messagebox.showinfo("Success", "Email sent!")
     except Exception as e:
-        messagebox.showerror("Error", f": {str(e)}")
+        messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
 
 
 #EMAIL
@@ -420,42 +409,32 @@ Was your Change a Standard Change? </li>
 ###ABANDONED CHANGE EMAIL SINTAX ###
 
 def send_abandoned_email():
-    cc_abandoned = entry_abandoned_email.get()
-    if not cc_abandoned:
-        messagebox.showerror("Error", "Please fill out the CC Email Field.")
+    cc_abandoned = entry_abandoned_email.get().strip()
+    abandoned_change_record = entry_abandoned_change.get().strip()
+
+    if not cc_abandoned or not abandoned_change_record:
+        messagebox.showerror("Error", "Please fill out all required fields.")
         return
 
-    ## Replacement code block
-    username, domain = cc_abandoned.split("@")
-    c_coordinator = username.split("_" or ".")  
+    username, _, domain = cc_abandoned.partition("@")
+    c_coordinator = [name.capitalize() for name in username.replace(".", "_").split("_")]
 
-    abandoned_change_record = entry_abandoned_change.get()
-    if not abandoned_change_record:
-        messagebox.showerror("Error", "Please fill out the Change Number Field.")
-        return
-
-
-    subject_mail = "Abandoned Standard Change Notification - "f"{abandoned_change_record}"
+    subject_mail = f"Abandoned Standard Change Notification - {abandoned_change_record}"
     abandoned_body_mail = abandoned_caused_html()
-    abandoned_body_mail = abandoned_body_mail.replace("Change_Coordinator", " ".join([name.capitalize() for name in c_coordinator]))
+    abandoned_body_mail = abandoned_body_mail.replace("Change_Coordinator", " ".join(c_coordinator))
     abandoned_body_mail = abandoned_body_mail.replace("XXXCHANGENUMBERXXX", abandoned_change_record)
-
 
     try:
         outlook = win32com.client.Dispatch('Outlook.Application')
-        namespace = outlook.GetNamespace("MAPI")
-        caixa_saida = namespace.GetDefaultFolder(5)  # Output Box
-
-        email = outlook.CreateItem(0)  # 0 is an new email
+        email = outlook.CreateItem(0)  # 0 = New email
         email.Subject = subject_mail
         email.HtmlBody = abandoned_body_mail
         email.To = cc_abandoned
-        ##email.bcc = "rsyn@live.com"
-
         email.Send()
-        messagebox.showinfo("Success", "Email sent!")
+
+        messagebox.showinfo("Success", "Email sent successfully!")
     except Exception as e:
-        messagebox.showerror("Error", f": {str(e)}")
+        messagebox.showerror("Error", f"Failed to send email: {str(e)}")
 
 
 def abandoned_caused_html():
@@ -498,26 +477,17 @@ def abandoned_caused_html():
 
 
 # Create the "Send" button
-send_button_tab1 = tk.Button(frame_button_tab1, text="Send", command=send_std_email, font=("Arial", 12))
-send_button_tab1.pack(side="left" ,padx=10, pady=5)
+def create_buttons(frame, send_command, clear_command):
+    send_button = tk.Button(frame, text="Send", command=send_command, font=("Arial", 12))
+    send_button.pack(side="left", padx=10, pady=5)
 
-clear_button_tab1 = tk.Button(frame_button_tab1, text="Clear", command=clear_std, font=("Arial", 12))
-clear_button_tab1.pack(side="left", padx=5, pady=5)
+    clear_button = tk.Button(frame, text="Clear", command=clear_command, font=("Arial", 12))
+    clear_button.pack(side="left", padx=5, pady=5)
 
-# Create the "Send" button for second window
-send_button_tab2 = tk.Button(frame_button_tab2, text="Send", command=send_incident_email, font=("Arial", 12))
-send_button_tab2.pack(side="left" ,padx=10, pady=5)
-
-clear_button_tab2 = tk.Button(frame_button_tab2, text="Clear", command=clear_inc, font=("Arial", 12))
-clear_button_tab2.pack(side="left", padx=5, pady=5)
-
-
-# Create the "Send" button for second window
-send_button_tab3 = tk.Button(frame_button_tab3, text="Send", command=send_abandoned_email, font=("Arial", 12))
-send_button_tab3.pack(side="left" ,padx=10, pady=5)
-
-clear_button_tab3 = tk.Button(frame_button_tab3, text="Clear", command=clear_abandoned, font=("Arial", 12))
-clear_button_tab3.pack(side="left", padx=5, pady=5)
+# Criando os botões para cada aba
+create_buttons(frame_button_tab1, send_std_email, clear_std)
+create_buttons(frame_button_tab2, send_incident_email, clear_inc)
+create_buttons(frame_button_tab3, send_abandoned_email, clear_abandoned)
 
 
 # Start the main loop
