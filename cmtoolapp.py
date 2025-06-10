@@ -75,13 +75,11 @@ cmtool_label.pack(pady=10)
 # Create a Tab Control
 tab_control = ttk.Notebook(cmtool_window)
 # Create tabs
-tab4 = tk.Frame(tab_control)
 tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
 tab3 = ttk.Frame(tab_control)
 
 # Add tabs to the Tab Control
-tab_control.add(tab4, text="Review")
 tab_control.add(tab1, text="STD Form")
 tab_control.add(tab2, text="INC/Change")
 tab_control.add(tab3, text="Abandoned")
@@ -127,18 +125,6 @@ date_entry = create_date_entry(frame_request_details)
 frame_aditional_info = ttk.LabelFrame(tab1, text="Configuration Items", padding=(5, 5), height=100)
 frame_aditional_info.pack(padx=5, pady=5, fill="both", expand=False)
 config_item = create_box(frame_aditional_info, width=5)
-
-################################################################
-# Create a frame to group related fields for REVIEW Tab
-frame_review = ttk.LabelFrame(tab4, text="Change Record Details", padding=(10, 5), height=100)
-frame_review.pack(padx=5, pady=5, fill="both", expand=False)
-create_label(frame_review, "Change Coordinator Email:")
-entry_review_email = create_box(frame_review, width=10)
-create_label(frame_review, "Change Record:")
-entry_review_change_number = create_box(frame_review, width=5)
-create_label(frame_review, "Change Short Desciption:")
-entry_review_short_description = create_box(frame_review, width=5)
-
 
 ################################################################
 # Create a frame to group related fields for Incident Caused Tab 
