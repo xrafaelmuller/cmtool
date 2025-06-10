@@ -21,23 +21,14 @@ def add_copied_text():
     entry_cm_std.insert(tk.END, clipboard_data)
     entry_inc_cc.insert(tk.END, clipboard_data)
 
-def clear_abandoned():
-    entry_inc_cc.delete(0, tk.END)
-    entry_abandoned_change.delete(0, tk.END)
-
-def clear_inc():
-    entry_incident_number.delete(0, tk.END)
-    entry_inc_cc.delete(0, tk.END)
-    entry_inc_change_activity.delete(0, tk.END)
-    entry_incident_number.delete(0, tk.END)
-
-def clear_std():
-    entry_cm_std.delete(0, tk.END)
-    entry_ritm.delete(0, tk.END)
-    entry_short_description.delete(0, tk.END)
-    config_item.delete(0, tk.END)
-
-
+def clear_all_entries():
+    entries = [
+        entry_inc_cc, entry_abandoned_change, entry_incident_number,
+        entry_inc_change_activity, entry_cm_std, entry_ritm,
+        entry_short_description, config_item, entry_abandoned_email
+    ]
+    for entry in entries:
+        entry.delete(0, tk.END)
 
 # Function to create labels
 def create_label(parent, text):
@@ -84,13 +75,17 @@ cmtool_label.pack(pady=10)
 # Create a Tab Control
 tab_control = ttk.Notebook(cmtool_window)
 # Create tabs
+tab4 = tk.Frame(tab_control)
 tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
 tab3 = ttk.Frame(tab_control)
+
 # Add tabs to the Tab Control
-tab_control.add(tab1, text="Std Creation")
-tab_control.add(tab2, text="INC Caused By Change")
-tab_control.add(tab3, text="Abandoned Changes")
+tab_control.add(tab4, text="Review")
+tab_control.add(tab1, text="STD Form")
+tab_control.add(tab2, text="INC/Change")
+tab_control.add(tab3, text="Abandoned")
+
 # Bind the tab change event to a function
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 # Pack the Tab Control
@@ -134,7 +129,19 @@ frame_aditional_info.pack(padx=5, pady=5, fill="both", expand=False)
 config_item = create_box(frame_aditional_info, width=5)
 
 ################################################################
-# Create a frame to group related fields for Incident Caused Tab Tab
+# Create a frame to group related fields for REVIEW Tab
+frame_review = ttk.LabelFrame(tab4, text="Change Record Details", padding=(10, 5), height=100)
+frame_review.pack(padx=5, pady=5, fill="both", expand=False)
+create_label(frame_review, "Change Coordinator Email:")
+entry_review_email = create_box(frame_review, width=10)
+create_label(frame_review, "Change Record:")
+entry_review_change_number = create_box(frame_review, width=5)
+create_label(frame_review, "Change Short Desciption:")
+entry_review_short_description = create_box(frame_review, width=5)
+
+
+################################################################
+# Create a frame to group related fields for Incident Caused Tab 
 frame_incident_caused = ttk.LabelFrame(tab2, text="Change Activity Details", padding=(10, 5), height=100)
 frame_incident_caused.pack(padx=5, pady=5, fill="both", expand=False)
 create_label(frame_incident_caused, "Change Coordinator Email:")
@@ -165,8 +172,6 @@ frame_button_tab2.pack(side="top", padx=2, pady=2, fill="both", expand=False)
 
 frame_button_tab3 = ttk.LabelFrame(tab3, padding=(2, 2), height=1, borderwidth=1)
 frame_button_tab3.pack(side="top", padx=2, pady=2, fill="both", expand=False)
-
-
 
 
 def send_std_email():
@@ -506,14 +511,14 @@ def abandoned_caused_html():
 send_button_tab1 = tk.Button(frame_button_tab1, text="Send", command=send_std_email, font=("Arial", 12))
 send_button_tab1.pack(side="left" ,padx=10, pady=5)
 
-clear_button_tab1 = tk.Button(frame_button_tab1, text="Clear", command=clear_std, font=("Arial", 12))
+clear_button_tab1 = tk.Button(frame_button_tab1, text="Clear", command=clear_all_entries, font=("Arial", 12))
 clear_button_tab1.pack(side="left", padx=5, pady=5)
 
 # Create the "Send" button for second window
 send_button_tab2 = tk.Button(frame_button_tab2, text="Send", command=send_incident_email, font=("Arial", 12))
 send_button_tab2.pack(side="left" ,padx=10, pady=5)
 
-clear_button_tab2 = tk.Button(frame_button_tab2, text="Clear", command=clear_inc, font=("Arial", 12))
+clear_button_tab2 = tk.Button(frame_button_tab2, text="Clear", command=clear_all_entries, font=("Arial", 12))
 clear_button_tab2.pack(side="left", padx=5, pady=5)
 
 
@@ -521,7 +526,7 @@ clear_button_tab2.pack(side="left", padx=5, pady=5)
 send_button_tab3 = tk.Button(frame_button_tab3, text="Send", command=send_abandoned_email, font=("Arial", 12))
 send_button_tab3.pack(side="left" ,padx=10, pady=5)
 
-clear_button_tab3 = tk.Button(frame_button_tab3, text="Clear", command=clear_abandoned, font=("Arial", 12))
+clear_button_tab3 = tk.Button(frame_button_tab3, text="Clear", command=clear_all_entries, font=("Arial", 12))
 clear_button_tab3.pack(side="left", padx=5, pady=5)
 
 
